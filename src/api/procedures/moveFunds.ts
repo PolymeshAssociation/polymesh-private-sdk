@@ -25,6 +25,7 @@ export async function checkArgs(
 
   const sendingAccount = asConfidentialAccount(from, context);
   const receivingAccount = asConfidentialAccount(to, context);
+  const assets = proofs.map(({ asset }) => asConfidentialAsset(asset, context));
 
   const [sendingAccountExists, receivingAccountExists] = await Promise.all([
     sendingAccount.exists(),
@@ -35,6 +36,7 @@ export async function checkArgs(
     throw new PolymeshError({
       code: ErrorCode.DataUnavailable,
       message: 'The sending Confidential Account does not exist',
+      data: { receivingAccount: sendingAccount.publicKey },
     });
   }
 
@@ -42,6 +44,7 @@ export async function checkArgs(
     throw new PolymeshError({
       code: ErrorCode.DataUnavailable,
       message: 'The receiving Confidential Account does not exist',
+      data: { receivingAccount: receivingAccount.publicKey },
     });
   }
 
@@ -72,63 +75,81 @@ export async function checkArgs(
     });
   }
 
-  const checkAssetExists = proofs.map(({ asset }) => {
-    const confidentialAsset = asConfidentialAsset(asset, context);
+  const checkAssetExists = assets.map(confidentialAsset => confidentialAsset.exists());
 
-    return confidentialAsset.exists();
+  const assetExistsResult = await Promise.all(checkAssetExists);
+  const assetsThatDoNotExist: string[] = [];
+
+  assetExistsResult.forEach((exists, index) => {
+    if (!exists) {
+      assetsThatDoNotExist.push(assets[index].id);
+    }
   });
 
-  const assetExists = await Promise.all(checkAssetExists);
-
-  if (!assetExists.every(v => v)) {
+  if (assetsThatDoNotExist.length) {
     throw new PolymeshError({
       code: ErrorCode.DataUnavailable,
-      message: 'One or more of the specified Confidential Assets do not exist',
+      message: 'Confidential Assets that do not exist were provided',
+      data: { assets: assetsThatDoNotExist },
     });
   }
 
-  const checkIsAssetFrozenPromises = proofs.map(({ asset }) => {
-    const confidentialAsset = asConfidentialAsset(asset, context);
-
-    return confidentialAsset.isFrozen();
-  });
+  const checkIsAssetFrozenPromises = assets.map(confidentialAsset => confidentialAsset.isFrozen());
 
   const isFrozenResult = await Promise.all(checkIsAssetFrozenPromises);
+  const frozenAssets: string[] = [];
 
-  if (isFrozenResult.some(v => v)) {
+  isFrozenResult.forEach((isFrozen, index) => {
+    if (isFrozen) {
+      frozenAssets.push(assets[index].id);
+    }
+  });
+
+  if (frozenAssets.length) {
     throw new PolymeshError({
       code: ErrorCode.ValidationError,
-      message: 'The asset is frozen',
+      message: 'Assets are frozen for trading',
+      data: { assets: frozenAssets },
     });
   }
 
-  const checkIsSenderAccountFrozenPromises = proofs.map(({ asset }) => {
-    const confidentialAsset = asConfidentialAsset(asset, context);
+  const checkIsSenderAccountFrozenPromises = assets.map(confidentialAsset =>
+    confidentialAsset.isAccountFrozen(from)
+  );
+  const isSenderFrozen = await Promise.all(checkIsSenderAccountFrozenPromises);
+  const frozenAssetsForSender: string[] = [];
 
-    return confidentialAsset.isAccountFrozen(from);
+  isSenderFrozen.forEach((isFrozen, index) => {
+    if (isFrozen) {
+      frozenAssetsForSender.push(assets[index].id);
+    }
   });
 
-  const isSenderFrozen = await Promise.all(checkIsSenderAccountFrozenPromises);
-
-  if (isSenderFrozen.some(v => v)) {
+  if (frozenAssetsForSender.length) {
     throw new PolymeshError({
       code: ErrorCode.ValidationError,
       message: 'The sender account is frozen for trading specified asset',
+      data: { assets: frozenAssetsForSender },
     });
   }
 
-  const checkIsReceiverAccountFrozenPromises = proofs.map(({ asset }) => {
-    const confidentialAsset = asConfidentialAsset(asset, context);
+  const checkIsReceiverAccountFrozenPromises = assets.map(confidentialAsset =>
+    confidentialAsset.isAccountFrozen(to)
+  );
+  const isReceiverFrozen = await Promise.all(checkIsReceiverAccountFrozenPromises);
+  const frozenAssetsForReceiver: string[] = [];
 
-    return confidentialAsset.isAccountFrozen(to);
+  isReceiverFrozen.forEach((isFrozen, index) => {
+    if (isFrozen) {
+      frozenAssetsForReceiver.push(assets[index].id);
+    }
   });
 
-  const isReceiverFrozen = await Promise.all(checkIsReceiverAccountFrozenPromises);
-
-  if (isReceiverFrozen.some(v => v)) {
+  if (frozenAssetsForReceiver.length) {
     throw new PolymeshError({
       code: ErrorCode.ValidationError,
       message: 'The receiver account is frozen for trading specified asset',
+      data: { assets: frozenAssetsForReceiver },
     });
   }
 

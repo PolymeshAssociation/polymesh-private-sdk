@@ -223,7 +223,7 @@ describe('moveFunds procedure', () => {
 
     const expectedError = new PolymeshError({
       code: ErrorCode.DataUnavailable,
-      message: 'One or more of the specified Confidential Assets do not exist',
+      message: 'Confidential Assets that do not exist were provided',
     });
 
     return expect(prepareMoveFunds.call(proc, args)).rejects.toThrowError(expectedError);
@@ -236,7 +236,7 @@ describe('moveFunds procedure', () => {
 
     const expectedError = new PolymeshError({
       code: ErrorCode.UnmetPrerequisite,
-      message: 'The asset is frozen',
+      message: 'Assets are frozen for trading',
     });
 
     return expect(prepareMoveFunds.call(proc, args)).rejects.toThrowError(expectedError);
