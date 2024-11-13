@@ -1,7 +1,10 @@
 // Auto-generated via `yarn polkadot-types-from-defs`, do not edit
 /* eslint-disable */
 
-import { PolymeshPrimitivesConditionTrustedIssuer } from '@polkadot/types/lookup';
+import {
+  PolymeshPrimitivesConditionConditionType,
+  PolymeshPrimitivesConditionTrustedIssuer,
+} from '@polkadot/types/lookup';
 import type {
   Bytes,
   Enum,
