@@ -30,8 +30,8 @@ describe('ConfidentialPolymesh Class', () => {
       .spyOn(internalUtils, 'assertExpectedChainVersion')
       .mockClear()
       .mockImplementation()
-      .mockResolvedValue(undefined);
-    jest.spyOn(internalUtils, 'assertExpectedSqVersion').mockImplementation();
+      .mockResolvedValue(2000000);
+    jest.spyOn(internalUtils, 'warnUnexpectedSqVersion').mockImplementation();
     dsMockUtils.configureMocks({ contextOptions: undefined });
   });
 
@@ -109,6 +109,16 @@ describe('ConfidentialPolymesh Class', () => {
       await ConfidentialPolymesh.connect({
         nodeUrl: 'wss://some.url',
         polkadot,
+      });
+
+      expect(createMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('should support http connection to the chain', async () => {
+      const createMock = dsMockUtils.getContextCreateMock();
+
+      await ConfidentialPolymesh.connect({
+        nodeUrl: 'https://some.url',
       });
 
       expect(createMock).toHaveBeenCalledTimes(1);

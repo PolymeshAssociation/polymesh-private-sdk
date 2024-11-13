@@ -4,7 +4,8 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client/core';
-import { ApiPromise, WsProvider } from '@polkadot/api';
+import { ApiPromise, HttpProvider, WsProvider } from '@polkadot/api';
+import { DefinitionsCall } from '@polkadot/types/types';
 import { Polymesh as PublicPolymesh } from '@polymeshassociation/polymesh-sdk';
 import { Context, PolymeshError } from '@polymeshassociation/polymesh-sdk/internal';
 import {
@@ -14,7 +15,8 @@ import {
 } from '@polymeshassociation/polymesh-sdk/types';
 import {
   assertExpectedChainVersion,
-  assertExpectedSqVersion,
+  extractProtocol,
+  warnUnexpectedSqVersion,
 } from '@polymeshassociation/polymesh-sdk/utils/internal';
 import { SigningManager } from '@polymeshassociation/signing-manager-types';
 
@@ -125,17 +127,27 @@ export class ConfidentialPolymesh extends PublicPolymesh {
 
     const { metadata, noInitWarn, typesBundle } = polkadot ?? {};
 
-    // Defer `await` on any checks to minimize total startup time
-    const requiredChecks: Promise<void>[] = [assertExpectedChainVersion(nodeUrl)];
+    const specVersion = await assertExpectedChainVersion(nodeUrl);
 
     try {
-      const { types, rpc, signedExtensions, runtime } = schema;
+      const { types, rpc, signedExtensions, runtime, runtimeV6 } = schema;
+
+      /* istanbul ignore next: this will be removed after dual version support for v6-v7 */
+      const runtimeApis =
+        specVersion >= 7000000 || (specVersion < 3000000 && specVersion > 1000000)
+          ? runtime
+          : runtimeV6;
+      const connectionProtocol = extractProtocol(nodeUrl)!;
+
+      const provider = connectionProtocol.startsWith('http')
+        ? new HttpProvider(nodeUrl)
+        : new WsProvider(nodeUrl);
 
       polymeshApi = await ApiPromise.create({
-        provider: new WsProvider(nodeUrl),
+        provider,
         types,
         rpc,
-        runtime,
+        runtime: runtimeApis as unknown as DefinitionsCall,
         signedExtensions,
         metadata,
         noInitWarn,
@@ -180,10 +192,8 @@ export class ConfidentialPolymesh extends PublicPolymesh {
         }
       };
 
-      requiredChecks.push(checkMiddleware(), assertExpectedSqVersion(context));
+      await Promise.all([checkMiddleware(), warnUnexpectedSqVersion(context)]);
     }
-
-    await Promise.all(requiredChecks);
 
     return new ConfidentialPolymesh(context);
   }

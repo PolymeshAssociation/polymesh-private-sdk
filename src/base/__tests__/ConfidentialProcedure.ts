@@ -333,7 +333,7 @@ describe('Procedure class', () => {
         ticker,
         secondaryAccounts,
       };
-      const tx1 = dsMockUtils.createTxMock('asset', 'registerTicker');
+      const tx1 = dsMockUtils.createTxMock('asset', 'registerUniqueTicker');
       const tx2 = dsMockUtils.createTxMock('identity', 'cddRegisterDid');
 
       const returnValue = 'good';
@@ -515,7 +515,7 @@ describe('Procedure class', () => {
         this: ConfidentialProcedure<typeof procArgs, string>
       ): Promise<TransactionSpec<string, [string]>> {
         return {
-          transaction: dsMockUtils.createTxMock('asset', 'registerTicker'),
+          transaction: dsMockUtils.createTxMock('asset', 'registerUniqueTicker'),
           args: [ticker],
           resolver: 'success',
         };
@@ -612,7 +612,7 @@ describe('Procedure class', () => {
 
     beforeAll(() => {
       proc = new ConfidentialProcedure(async () => ({
-        transaction: dsMockUtils.createTxMock('asset', 'registerTicker'),
+        transaction: dsMockUtils.createTxMock('asset', 'registerUniqueTicker'),
         resolver: undefined,
         args: ['TICKER'],
       }));
@@ -638,7 +638,7 @@ describe('Procedure class', () => {
 
     beforeAll(() => {
       proc = new ConfidentialProcedure(async () => ({
-        transaction: dsMockUtils.createTxMock('asset', 'registerTicker'),
+        transaction: dsMockUtils.createTxMock('asset', 'registerUniqueTicker'),
         resolver: undefined,
         args: ['TICKER'],
       }));

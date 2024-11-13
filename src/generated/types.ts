@@ -419,6 +419,22 @@ export enum MultiSigTx {
   MakeMultisigSecondary = 'multiSig.makeMultisigSecondary',
   ChangeSigsRequiredViaCreator = 'multiSig.changeSigsRequiredViaCreator',
   RemoveCreatorControls = 'multiSig.removeCreatorControls',
+  CreateProposal = 'multiSig.createProposal',
+  Approve = 'multiSig.approve',
+  Reject = 'multiSig.reject',
+  AcceptMultisigSigner = 'multiSig.acceptMultisigSigner',
+  AddMultisigSigners = 'multiSig.addMultisigSigners',
+  RemoveMultisigSigners = 'multiSig.removeMultisigSigners',
+  AddMultisigSignersViaAdmin = 'multiSig.addMultisigSignersViaAdmin',
+  RemoveMultisigSignersViaAdmin = 'multiSig.removeMultisigSignersViaAdmin',
+  ChangeSigsRequiredViaAdmin = 'multiSig.changeSigsRequiredViaAdmin',
+  AddAdmin = 'multiSig.addAdmin',
+  RemoveAdminViaAdmin = 'multiSig.removeAdminViaAdmin',
+  RemovePayer = 'multiSig.removePayer',
+  RemovePayerViaPayer = 'multiSig.removePayerViaPayer',
+  ApproveJoinIdentity = 'multiSig.approveJoinIdentity',
+  JoinIdentity = 'multiSig.joinIdentity',
+  RemoveAdmin = 'multiSig.removeAdmin',
 }
 
 export enum BridgeTx {
@@ -475,6 +491,11 @@ export enum StakingTx {
   ChangeSlashingAllowedFor = 'staking.changeSlashingAllowedFor',
   UpdatePermissionedValidatorIntendedCount = 'staking.updatePermissionedValidatorIntendedCount',
   ChillFromGovernance = 'staking.chillFromGovernance',
+  Kick = 'staking.kick',
+  SetStakingConfigs = 'staking.setStakingConfigs',
+  ChillOther = 'staking.chillOther',
+  ForceApplyMinCommission = 'staking.forceApplyMinCommission',
+  SetMinCommission = 'staking.setMinCommission',
 }
 
 export enum SessionTx {
@@ -534,6 +555,13 @@ export enum AssetTx {
   RemoveTickerPreApproval = 'asset.removeTickerPreApproval',
   AddMandatoryMediators = 'asset.addMandatoryMediators',
   RemoveMandatoryMediators = 'asset.removeMandatoryMediators',
+  RegisterUniqueTicker = 'asset.registerUniqueTicker',
+  ExemptAssetAffirmation = 'asset.exemptAssetAffirmation',
+  RemoveAssetAffirmationExemption = 'asset.removeAssetAffirmationExemption',
+  PreApproveAsset = 'asset.preApproveAsset',
+  RemoveAssetPreApproval = 'asset.removeAssetPreApproval',
+  LinkTickerToAssetId = 'asset.linkTickerToAssetId',
+  UnlinkTickerFromAssetId = 'asset.unlinkTickerFromAssetId',
 }
 
 export enum CapitalDistributionTx {
@@ -819,6 +847,23 @@ export enum ValidatorSetTx {
   RemoveValidator = 'validatorSet.removeValidator',
 }
 
+export enum StateTrieMigrationTx {
+  ControlAutoMigration = 'stateTrieMigration.controlAutoMigration',
+  ContinueMigrate = 'stateTrieMigration.continueMigrate',
+  MigrateCustomTop = 'stateTrieMigration.migrateCustomTop',
+  MigrateCustomChild = 'stateTrieMigration.migrateCustomChild',
+  SetSignedMaxLimits = 'stateTrieMigration.setSignedMaxLimits',
+  ForceSetProgress = 'stateTrieMigration.forceSetProgress',
+}
+
+export enum ElectionProviderMultiPhaseTx {
+  SubmitUnsigned = 'electionProviderMultiPhase.submitUnsigned',
+  SetMinimumUntrustedScore = 'electionProviderMultiPhase.setMinimumUntrustedScore',
+  SetEmergencyElectionResult = 'electionProviderMultiPhase.setEmergencyElectionResult',
+  Submit = 'electionProviderMultiPhase.submit',
+  GovernanceFallback = 'electionProviderMultiPhase.governanceFallback',
+}
+
 export enum ModuleName {
   System = 'system',
   Babe = 'babe',
@@ -866,6 +911,8 @@ export enum ModuleName {
   Nft = 'nft',
   ConfidentialAsset = 'confidentialAsset',
   ValidatorSet = 'validatorSet',
+  StateTrieMigration = 'stateTrieMigration',
+  ElectionProviderMultiPhase = 'electionProviderMultiPhase',
 }
 
 export type TxTag =
@@ -914,7 +961,9 @@ export type TxTag =
   | ContractsTx
   | NftTx
   | ConfidentialAssetTx
-  | ValidatorSetTx;
+  | ValidatorSetTx
+  | StateTrieMigrationTx
+  | ElectionProviderMultiPhaseTx;
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const TxTags = {
@@ -964,4 +1013,6 @@ export const TxTags = {
   nft: NftTx,
   confidentialAsset: ConfidentialAssetTx,
   validatorSet: ValidatorSetTx,
+  stateTrieMigration: StateTrieMigrationTx,
+  electionProviderMultiPhase: ElectionProviderMultiPhaseTx,
 };

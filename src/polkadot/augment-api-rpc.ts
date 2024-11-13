@@ -17,6 +17,7 @@ import type {
   Json,
   Null,
   Option,
+  Result,
   Text,
   U256,
   U64,
@@ -29,7 +30,7 @@ import type {
 import type { AnyNumber, Codec, ITuple } from '@polkadot/types-codec/types';
 import type { ExtrinsicOrHash, ExtrinsicStatus } from '@polkadot/types/interfaces/author';
 import type { EpochAuthorship } from '@polkadot/types/interfaces/babe';
-import type { BeefySignedCommitment } from '@polkadot/types/interfaces/beefy';
+import type { BeefyVersionedFinalityProof } from '@polkadot/types/interfaces/beefy';
 import type { BlockHash } from '@polkadot/types/interfaces/chain';
 import type { PrefixedStorageKey } from '@polkadot/types/interfaces/childstate';
 import type { AuthorityId } from '@polkadot/types/interfaces/consensus';
@@ -71,6 +72,7 @@ import type { FeeDetails, RuntimeDispatchInfoV1 } from '@polkadot/types/interfac
 import type { RpcMethods } from '@polkadot/types/interfaces/rpc';
 import type {
   AccountId,
+  AssetId,
   Balance,
   BlockNumber,
   H160,
@@ -95,7 +97,7 @@ import type {
   ApplyExtrinsicResult,
   ChainProperties,
   ChainType,
-  DispatchResult,
+  DispatchError,
   Health,
   NetworkState,
   NodeRole,
@@ -105,17 +107,17 @@ import type {
 import type { IExtrinsic, Observable } from '@polkadot/types/types';
 import type {
   AffirmationCount,
-  AssetDidResult,
   AuthorizationType,
-  CanTransferGranularReturn,
   CappedFee,
   CddStatus,
+  ComplianceReport,
   DidStatus,
   ExecuteInstructionInfo,
   IdentityClaim,
   IdentityId,
   InstructionId,
   KeyIdentityData,
+  Leg,
   Member,
   NFTs,
   PipId,
@@ -123,7 +125,6 @@ import type {
   ProtocolOp,
   RpcDidRecords,
   Signatory,
-  Ticker,
   VoteCount,
 } from 'polymesh-types/polymesh';
 
@@ -133,26 +134,17 @@ declare module '@polkadot/rpc-core/types/jsonrpc' {
   interface RpcInterface {
     asset: {
       /**
-       * Checks whether a transaction with given parameters can take place or not. The result is granular meaning each check is run and returned regardless of outcome.
+       * Returns a vector containing all errors for the transfer. An empty vec means there's no error.
        **/
-      canTransferGranular: AugmentedRpc<
+      transferReport: AugmentedRpc<
         (
-          fromCustodian:
-            | Option<PolymeshPrimitivesIdentityId>
-            | null
-            | Uint8Array
-            | PolymeshPrimitivesIdentityId,
-          fromPortfolio: PortfolioId | { did?: any; kind?: any } | string | Uint8Array,
-          toCustodian:
-            | Option<PolymeshPrimitivesIdentityId>
-            | null
-            | Uint8Array
-            | PolymeshPrimitivesIdentityId,
-          toPortfolio: PortfolioId | { did?: any; kind?: any } | string | Uint8Array,
-          ticker: Ticker | string | Uint8Array,
-          value: Balance | AnyNumber | Uint8Array,
+          senderPortfolio: PortfolioId | { did?: any; kind?: any } | string | Uint8Array,
+          receiverPortfolio: PortfolioId | { did?: any; kind?: any } | string | Uint8Array,
+          assetId: AssetId | string | Uint8Array,
+          transferValue: Balance | AnyNumber | Uint8Array,
+          skipLockedCheck: bool | boolean | Uint8Array,
           blockHash?: Hash | string | Uint8Array
-        ) => Observable<CanTransferGranularReturn>
+        ) => Observable<Vec<DispatchError>>
       >;
     };
     author: {
@@ -219,9 +211,9 @@ declare module '@polkadot/rpc-core/types/jsonrpc' {
        **/
       getFinalizedHead: AugmentedRpc<() => Observable<H256>>;
       /**
-       * Returns the block most recently finalized by BEEFY, alongside side its justification.
+       * Returns the block most recently finalized by BEEFY, alongside its justification.
        **/
-      subscribeJustifications: AugmentedRpc<() => Observable<BeefySignedCommitment>>;
+      subscribeJustifications: AugmentedRpc<() => Observable<BeefyVersionedFinalityProof>>;
     };
     chain: {
       /**
@@ -317,6 +309,18 @@ declare module '@polkadot/rpc-core/types/jsonrpc' {
           key: StorageKey | string | Uint8Array | any,
           at?: Hash | string | Uint8Array
         ) => Observable<Option<u64>>
+      >;
+    };
+    compliance: {
+      /**
+       * Checks all compliance requirements for the given asset.
+       **/
+      complianceReport: AugmentedRpc<
+        (
+          asset_id: AssetId | string | Uint8Array,
+          sender_identity: IdentityId | string | Uint8Array,
+          receiver_identity: IdentityId | string | Uint8Array
+        ) => Observable<Result<ComplianceReport, DispatchError>>
       >;
     };
     contracts: {
@@ -790,15 +794,6 @@ declare module '@polkadot/rpc-core/types/jsonrpc' {
     };
     identity: {
       /**
-       * function is used to query the given ticker DID
-       **/
-      getAssetDid: AugmentedRpc<
-        (
-          ticker: Ticker | string | Uint8Array,
-          blockHash?: Hash | string | Uint8Array
-        ) => Observable<AssetDidResult>
-      >;
-      /**
        * Used to get the did record values for a given DID
        **/
       getDidRecords: AugmentedRpc<
@@ -927,15 +922,16 @@ declare module '@polkadot/rpc-core/types/jsonrpc' {
     };
     nft: {
       /**
-       * Verifies if and the sender and receiver are not the same, if both have valid balances, if the sender owns the nft, and if all compliance rules are being respected.
+       * Returns a vector containing all errors for the transfer. An empty vec means there's no error.
        **/
-      validateNFTTransfer: AugmentedRpc<
+      transferReport: AugmentedRpc<
         (
           sender_portfolio: PortfolioId | { did?: any; kind?: any } | string | Uint8Array,
           receiver_portfolio: PortfolioId | { did?: any; kind?: any } | string | Uint8Array,
-          nfts: NFTs | { ticker?: any; ids?: any } | string | Uint8Array,
+          nfts: NFTs | { asset_id?: any; ids?: any } | string | Uint8Array,
+          skip_locked_check: bool | boolean | Uint8Array,
           blockHash?: Hash | string | Uint8Array
-        ) => Observable<DispatchResult>
+        ) => Observable<Vec<DispatchError>>
       >;
     };
     offchain: {
@@ -1066,7 +1062,28 @@ declare module '@polkadot/rpc-core/types/jsonrpc' {
         (
           instructionId: InstructionId | AnyNumber | Uint8Array,
           blockHash?: Hash | string | Uint8Array
-        ) => Observable<ExecuteInstructionInfo>
+        ) => Observable<Option<ExecuteInstructionInfo>>
+      >;
+      /**
+       * Returns a vector containing all errors for the execution. An empty vec means there's no error.
+       **/
+      getExecuteInstructionReport: AugmentedRpc<
+        (instruction_id: InstructionId | AnyNumber | Uint8Array) => Observable<Vec<DispatchError>>
+      >;
+      /**
+       * Returns a vector containing all errors for the transfer. An empty vec means there's no error.
+       **/
+      getTransferReport: AugmentedRpc<
+        (
+          leg:
+            | Leg
+            | { Fungible: any }
+            | { NonFungible: any }
+            | { OffChain: any }
+            | string
+            | Uint8Array,
+          skip_locked_check: bool | boolean | Uint8Array
+        ) => Observable<Vec<DispatchError>>
       >;
     };
     staking: {

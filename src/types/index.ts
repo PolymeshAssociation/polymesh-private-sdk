@@ -43,7 +43,6 @@ export {
   MultiSigProposalVoteActionEnum,
   NftHoldersOrderBy,
   Scalars,
-  SettlementResultEnum,
 } from '@polymeshassociation/polymesh-sdk/middleware/types';
 export {
   ClaimScopeTypeEnum,

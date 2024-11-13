@@ -8,7 +8,6 @@ import {
   SignerType,
 } from '@polymeshassociation/polymesh-sdk/types';
 
-import { TxTag } from '~/generated/types';
 import {
   ConfidentialAccount as ConfidentialAccountClass,
   ConfidentialAsset as ConfidentialAssetClass,
@@ -16,6 +15,7 @@ import {
   ConfidentialVenue as ConfidentialVenueClass,
   Identity as IdentityClass,
 } from '~/internal';
+import { TxTag } from '~/types';
 
 export * from '@polymeshassociation/polymesh-sdk/api/entities/types';
 

@@ -271,53 +271,52 @@ export default {
    * Lookup40: polymesh_primitives::secondary_key::Permissions
    **/
   PolymeshPrimitivesSecondaryKeyPermissions: {
-    asset: 'PolymeshPrimitivesSubsetSubsetRestrictionTicker',
-    extrinsic: 'PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions',
+    asset: 'PolymeshPrimitivesSubsetSubsetRestrictionAssetId',
+    extrinsic: 'PolymeshPrimitivesSecondaryKeyExtrinsicPermissions',
     portfolio: 'PolymeshPrimitivesSubsetSubsetRestrictionPortfolioId',
   },
   /**
-   * Lookup41: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::ticker::Ticker>
+   * Lookup41: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::asset::AssetId>
    **/
-  PolymeshPrimitivesSubsetSubsetRestrictionTicker: {
+  PolymeshPrimitivesSubsetSubsetRestrictionAssetId: {
     _enum: {
       Whole: 'Null',
-      These: 'BTreeSet<PolymeshPrimitivesTicker>',
-      Except: 'BTreeSet<PolymeshPrimitivesTicker>',
+      These: 'BTreeSet<PolymeshPrimitivesAssetAssetId>',
+      Except: 'BTreeSet<PolymeshPrimitivesAssetAssetId>',
     },
   },
   /**
-   * Lookup42: polymesh_primitives::ticker::Ticker
+   * Lookup42: polymesh_primitives::asset::AssetId
    **/
-  PolymeshPrimitivesTicker: '[u8;12]',
+  PolymeshPrimitivesAssetAssetId: '[u8;16]',
   /**
-   * Lookup46: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::secondary_key::PalletPermissions>
+   * Lookup46: polymesh_primitives::secondary_key::ExtrinsicPermissions
    **/
-  PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions: {
+  PolymeshPrimitivesSecondaryKeyExtrinsicPermissions: {
     _enum: {
       Whole: 'Null',
-      These: 'BTreeSet<PolymeshPrimitivesSecondaryKeyPalletPermissions>',
-      Except: 'BTreeSet<PolymeshPrimitivesSecondaryKeyPalletPermissions>',
+      These: 'BTreeMap<Text, PolymeshPrimitivesSecondaryKeyPalletPermissions>',
+      Except: 'BTreeMap<Text, PolymeshPrimitivesSecondaryKeyPalletPermissions>',
     },
   },
   /**
-   * Lookup47: polymesh_primitives::secondary_key::PalletPermissions
+   * Lookup50: polymesh_primitives::secondary_key::PalletPermissions
    **/
   PolymeshPrimitivesSecondaryKeyPalletPermissions: {
-    palletName: 'Bytes',
-    dispatchableNames: 'PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName',
+    extrinsics: 'PolymeshPrimitivesSubsetSubsetRestrictionExtrinsicName',
   },
   /**
-   * Lookup49: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::DispatchableName>
+   * Lookup51: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::ExtrinsicName>
    **/
-  PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName: {
+  PolymeshPrimitivesSubsetSubsetRestrictionExtrinsicName: {
     _enum: {
       Whole: 'Null',
-      These: 'BTreeSet<Bytes>',
-      Except: 'BTreeSet<Bytes>',
+      These: 'BTreeSet<Text>',
+      Except: 'BTreeSet<Text>',
     },
   },
   /**
-   * Lookup55: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::identity_id::PortfolioId>
+   * Lookup57: polymesh_primitives::subset::SubsetRestriction<polymesh_primitives::identity_id::PortfolioId>
    **/
   PolymeshPrimitivesSubsetSubsetRestrictionPortfolioId: {
     _enum: {
@@ -327,14 +326,14 @@ export default {
     },
   },
   /**
-   * Lookup56: polymesh_primitives::identity_id::PortfolioId
+   * Lookup58: polymesh_primitives::identity_id::PortfolioId
    **/
   PolymeshPrimitivesIdentityIdPortfolioId: {
     did: 'PolymeshPrimitivesIdentityId',
     kind: 'PolymeshPrimitivesIdentityIdPortfolioKind',
   },
   /**
-   * Lookup57: polymesh_primitives::identity_id::PortfolioKind
+   * Lookup59: polymesh_primitives::identity_id::PortfolioKind
    **/
   PolymeshPrimitivesIdentityIdPortfolioKind: {
     _enum: {
@@ -343,7 +342,7 @@ export default {
     },
   },
   /**
-   * Lookup62: polymesh_primitives::identity_claim::IdentityClaim
+   * Lookup64: polymesh_primitives::identity_claim::IdentityClaim
    **/
   PolymeshPrimitivesIdentityClaim: {
     claimIssuer: 'PolymeshPrimitivesIdentityId',
@@ -353,7 +352,7 @@ export default {
     claim: 'PolymeshPrimitivesIdentityClaimClaim',
   },
   /**
-   * Lookup64: polymesh_primitives::identity_claim::Claim
+   * Lookup66: polymesh_primitives::identity_claim::Claim
    **/
   PolymeshPrimitivesIdentityClaimClaim: {
     _enum: {
@@ -371,21 +370,21 @@ export default {
     },
   },
   /**
-   * Lookup65: polymesh_primitives::identity_claim::Scope
+   * Lookup67: polymesh_primitives::identity_claim::Scope
    **/
   PolymeshPrimitivesIdentityClaimScope: {
     _enum: {
       Identity: 'PolymeshPrimitivesIdentityId',
-      Ticker: 'PolymeshPrimitivesTicker',
+      Asset: 'PolymeshPrimitivesAssetAssetId',
       Custom: 'Bytes',
     },
   },
   /**
-   * Lookup66: polymesh_primitives::cdd_id::CddId
+   * Lookup68: polymesh_primitives::cdd_id::CddId
    **/
   PolymeshPrimitivesCddId: '[u8;32]',
   /**
-   * Lookup67: polymesh_primitives::jurisdiction::CountryCode
+   * Lookup69: polymesh_primitives::jurisdiction::CountryCode
    **/
   PolymeshPrimitivesJurisdictionCountryCode: {
     _enum: [
@@ -642,7 +641,11 @@ export default {
     ],
   },
   /**
-   * Lookup71: polymesh_primitives::authorization::AuthorizationData<sp_core::crypto::AccountId32>
+   * Lookup72: polymesh_primitives::ticker::Ticker
+   **/
+  PolymeshPrimitivesTicker: '[u8;12]',
+  /**
+   * Lookup75: polymesh_primitives::authorization::AuthorizationData<sp_core::crypto::AccountId32>
    **/
   PolymeshPrimitivesAuthorizationAuthorizationData: {
     _enum: {
@@ -650,16 +653,16 @@ export default {
       RotatePrimaryKey: 'Null',
       TransferTicker: 'PolymeshPrimitivesTicker',
       AddMultiSigSigner: 'AccountId32',
-      TransferAssetOwnership: 'PolymeshPrimitivesTicker',
+      TransferAssetOwnership: 'PolymeshPrimitivesAssetAssetId',
       JoinIdentity: 'PolymeshPrimitivesSecondaryKeyPermissions',
       PortfolioCustody: 'PolymeshPrimitivesIdentityIdPortfolioId',
-      BecomeAgent: '(PolymeshPrimitivesTicker,PolymeshPrimitivesAgentAgentGroup)',
+      BecomeAgent: '(PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesAgentAgentGroup)',
       AddRelayerPayingKey: '(AccountId32,AccountId32,u128)',
       RotatePrimaryKeyToSecondary: 'PolymeshPrimitivesSecondaryKeyPermissions',
     },
   },
   /**
-   * Lookup72: polymesh_primitives::agent::AgentGroup
+   * Lookup76: polymesh_primitives::agent::AgentGroup
    **/
   PolymeshPrimitivesAgentAgentGroup: {
     _enum: {
@@ -671,7 +674,7 @@ export default {
     },
   },
   /**
-   * Lookup75: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance2>
+   * Lookup79: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance2>
    **/
   PolymeshCommonUtilitiesGroupRawEventInstance2: {
     _enum: {
@@ -686,11 +689,11 @@ export default {
     },
   },
   /**
-   * Lookup76: pallet_group::Instance2
+   * Lookup80: pallet_group::Instance2
    **/
   PalletGroupInstance2: 'Null',
   /**
-   * Lookup78: pallet_committee::RawEvent<primitive_types::H256, BlockNumber, pallet_committee::Instance1>
+   * Lookup82: pallet_committee::RawEvent<primitive_types::H256, BlockNumber, pallet_committee::Instance1>
    **/
   PalletCommitteeRawEventInstance1: {
     _enum: {
@@ -698,22 +701,21 @@ export default {
       Voted: '(PolymeshPrimitivesIdentityId,u32,H256,bool,u32,u32,u32)',
       VoteRetracted: '(PolymeshPrimitivesIdentityId,u32,H256,bool)',
       FinalVotes:
-        '(PolymeshPrimitivesIdentityId,u32,H256,Vec<PolymeshPrimitivesIdentityId>,Vec<PolymeshPrimitivesIdentityId>)',
-      Approved: '(PolymeshPrimitivesIdentityId,H256,u32,u32,u32)',
-      Rejected: '(PolymeshPrimitivesIdentityId,H256,u32,u32,u32)',
-      Executed: '(PolymeshPrimitivesIdentityId,H256,Result<Null, SpRuntimeDispatchError>)',
-      ReleaseCoordinatorUpdated:
-        '(PolymeshPrimitivesIdentityId,Option<PolymeshPrimitivesIdentityId>)',
+        '(Option<PolymeshPrimitivesIdentityId>,u32,H256,Vec<PolymeshPrimitivesIdentityId>,Vec<PolymeshPrimitivesIdentityId>)',
+      Approved: '(Option<PolymeshPrimitivesIdentityId>,H256,u32,u32,u32)',
+      Rejected: '(Option<PolymeshPrimitivesIdentityId>,H256,u32,u32,u32)',
+      Executed: '(Option<PolymeshPrimitivesIdentityId>,H256,Result<Null, SpRuntimeDispatchError>)',
+      ReleaseCoordinatorUpdated: 'Option<PolymeshPrimitivesIdentityId>',
       ExpiresAfterUpdated: '(PolymeshPrimitivesIdentityId,PolymeshCommonUtilitiesMaybeBlock)',
       VoteThresholdUpdated: '(PolymeshPrimitivesIdentityId,u32,u32)',
     },
   },
   /**
-   * Lookup79: pallet_committee::Instance1
+   * Lookup83: pallet_committee::Instance1
    **/
   PalletCommitteeInstance1: 'Null',
   /**
-   * Lookup82: polymesh_common_utilities::MaybeBlock<BlockNumber>
+   * Lookup86: polymesh_common_utilities::MaybeBlock<BlockNumber>
    **/
   PolymeshCommonUtilitiesMaybeBlock: {
     _enum: {
@@ -722,7 +724,7 @@ export default {
     },
   },
   /**
-   * Lookup83: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance1>
+   * Lookup87: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance1>
    **/
   PolymeshCommonUtilitiesGroupRawEventInstance1: {
     _enum: {
@@ -737,11 +739,11 @@ export default {
     },
   },
   /**
-   * Lookup84: pallet_group::Instance1
+   * Lookup88: pallet_group::Instance1
    **/
   PalletGroupInstance1: 'Null',
   /**
-   * Lookup85: pallet_committee::RawEvent<primitive_types::H256, BlockNumber, pallet_committee::Instance3>
+   * Lookup89: pallet_committee::RawEvent<primitive_types::H256, BlockNumber, pallet_committee::Instance3>
    **/
   PalletCommitteeRawEventInstance3: {
     _enum: {
@@ -749,22 +751,21 @@ export default {
       Voted: '(PolymeshPrimitivesIdentityId,u32,H256,bool,u32,u32,u32)',
       VoteRetracted: '(PolymeshPrimitivesIdentityId,u32,H256,bool)',
       FinalVotes:
-        '(PolymeshPrimitivesIdentityId,u32,H256,Vec<PolymeshPrimitivesIdentityId>,Vec<PolymeshPrimitivesIdentityId>)',
-      Approved: '(PolymeshPrimitivesIdentityId,H256,u32,u32,u32)',
-      Rejected: '(PolymeshPrimitivesIdentityId,H256,u32,u32,u32)',
-      Executed: '(PolymeshPrimitivesIdentityId,H256,Result<Null, SpRuntimeDispatchError>)',
-      ReleaseCoordinatorUpdated:
-        '(PolymeshPrimitivesIdentityId,Option<PolymeshPrimitivesIdentityId>)',
+        '(Option<PolymeshPrimitivesIdentityId>,u32,H256,Vec<PolymeshPrimitivesIdentityId>,Vec<PolymeshPrimitivesIdentityId>)',
+      Approved: '(Option<PolymeshPrimitivesIdentityId>,H256,u32,u32,u32)',
+      Rejected: '(Option<PolymeshPrimitivesIdentityId>,H256,u32,u32,u32)',
+      Executed: '(Option<PolymeshPrimitivesIdentityId>,H256,Result<Null, SpRuntimeDispatchError>)',
+      ReleaseCoordinatorUpdated: 'Option<PolymeshPrimitivesIdentityId>',
       ExpiresAfterUpdated: '(PolymeshPrimitivesIdentityId,PolymeshCommonUtilitiesMaybeBlock)',
       VoteThresholdUpdated: '(PolymeshPrimitivesIdentityId,u32,u32)',
     },
   },
   /**
-   * Lookup86: pallet_committee::Instance3
+   * Lookup90: pallet_committee::Instance3
    **/
   PalletCommitteeInstance3: 'Null',
   /**
-   * Lookup87: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance3>
+   * Lookup91: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance3>
    **/
   PolymeshCommonUtilitiesGroupRawEventInstance3: {
     _enum: {
@@ -779,11 +780,11 @@ export default {
     },
   },
   /**
-   * Lookup88: pallet_group::Instance3
+   * Lookup92: pallet_group::Instance3
    **/
   PalletGroupInstance3: 'Null',
   /**
-   * Lookup89: pallet_committee::RawEvent<primitive_types::H256, BlockNumber, pallet_committee::Instance4>
+   * Lookup93: pallet_committee::RawEvent<primitive_types::H256, BlockNumber, pallet_committee::Instance4>
    **/
   PalletCommitteeRawEventInstance4: {
     _enum: {
@@ -791,22 +792,21 @@ export default {
       Voted: '(PolymeshPrimitivesIdentityId,u32,H256,bool,u32,u32,u32)',
       VoteRetracted: '(PolymeshPrimitivesIdentityId,u32,H256,bool)',
       FinalVotes:
-        '(PolymeshPrimitivesIdentityId,u32,H256,Vec<PolymeshPrimitivesIdentityId>,Vec<PolymeshPrimitivesIdentityId>)',
-      Approved: '(PolymeshPrimitivesIdentityId,H256,u32,u32,u32)',
-      Rejected: '(PolymeshPrimitivesIdentityId,H256,u32,u32,u32)',
-      Executed: '(PolymeshPrimitivesIdentityId,H256,Result<Null, SpRuntimeDispatchError>)',
-      ReleaseCoordinatorUpdated:
-        '(PolymeshPrimitivesIdentityId,Option<PolymeshPrimitivesIdentityId>)',
+        '(Option<PolymeshPrimitivesIdentityId>,u32,H256,Vec<PolymeshPrimitivesIdentityId>,Vec<PolymeshPrimitivesIdentityId>)',
+      Approved: '(Option<PolymeshPrimitivesIdentityId>,H256,u32,u32,u32)',
+      Rejected: '(Option<PolymeshPrimitivesIdentityId>,H256,u32,u32,u32)',
+      Executed: '(Option<PolymeshPrimitivesIdentityId>,H256,Result<Null, SpRuntimeDispatchError>)',
+      ReleaseCoordinatorUpdated: 'Option<PolymeshPrimitivesIdentityId>',
       ExpiresAfterUpdated: '(PolymeshPrimitivesIdentityId,PolymeshCommonUtilitiesMaybeBlock)',
       VoteThresholdUpdated: '(PolymeshPrimitivesIdentityId,u32,u32)',
     },
   },
   /**
-   * Lookup90: pallet_committee::Instance4
+   * Lookup94: pallet_committee::Instance4
    **/
   PalletCommitteeInstance4: 'Null',
   /**
-   * Lookup91: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance4>
+   * Lookup95: polymesh_common_utilities::traits::group::RawEvent<sp_core::crypto::AccountId32, polymesh_private_runtime_develop::runtime::RuntimeEvent, pallet_group::Instance4>
    **/
   PolymeshCommonUtilitiesGroupRawEventInstance4: {
     _enum: {
@@ -821,47 +821,93 @@ export default {
     },
   },
   /**
-   * Lookup92: pallet_group::Instance4
+   * Lookup96: pallet_group::Instance4
    **/
   PalletGroupInstance4: 'Null',
   /**
-   * Lookup93: polymesh_common_utilities::traits::multisig::RawEvent<sp_core::crypto::AccountId32>
+   * Lookup97: pallet_multisig::pallet::Event<T>
    **/
-  PolymeshCommonUtilitiesMultisigRawEvent: {
+  PalletMultisigEvent: {
     _enum: {
-      MultiSigCreated:
-        '(PolymeshPrimitivesIdentityId,AccountId32,AccountId32,Vec<PolymeshPrimitivesSecondaryKeySignatory>,u64)',
-      ProposalAdded: '(PolymeshPrimitivesIdentityId,AccountId32,u64)',
-      ProposalExecuted: '(PolymeshPrimitivesIdentityId,AccountId32,u64,bool)',
-      MultiSigSignerAdded:
-        '(PolymeshPrimitivesIdentityId,AccountId32,PolymeshPrimitivesSecondaryKeySignatory)',
-      MultiSigSignerAuthorized:
-        '(PolymeshPrimitivesIdentityId,AccountId32,PolymeshPrimitivesSecondaryKeySignatory)',
-      MultiSigSignerRemoved:
-        '(PolymeshPrimitivesIdentityId,AccountId32,PolymeshPrimitivesSecondaryKeySignatory)',
-      MultiSigSignaturesRequiredChanged: '(PolymeshPrimitivesIdentityId,AccountId32,u64)',
-      ProposalApproved:
-        '(PolymeshPrimitivesIdentityId,AccountId32,PolymeshPrimitivesSecondaryKeySignatory,u64)',
-      ProposalRejectionVote:
-        '(PolymeshPrimitivesIdentityId,AccountId32,PolymeshPrimitivesSecondaryKeySignatory,u64)',
-      ProposalRejected: '(PolymeshPrimitivesIdentityId,AccountId32,u64)',
-      ProposalExecutionFailed: 'SpRuntimeDispatchError',
-      SchedulingFailed: 'SpRuntimeDispatchError',
-      ProposalFailedToExecute:
-        '(PolymeshPrimitivesIdentityId,AccountId32,u64,SpRuntimeDispatchError)',
+      MultiSigCreated: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        caller: 'AccountId32',
+        signers: 'Vec<AccountId32>',
+        sigsRequired: 'u64',
+      },
+      ProposalAdded: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        proposalId: 'u64',
+      },
+      ProposalExecuted: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        proposalId: 'u64',
+        result: 'Result<Null, SpRuntimeDispatchError>',
+      },
+      MultiSigSignerAdded: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        signer: 'AccountId32',
+      },
+      MultiSigSignersAuthorized: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        signers: 'Vec<AccountId32>',
+      },
+      MultiSigSignersRemoved: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        signers: 'Vec<AccountId32>',
+      },
+      MultiSigSignersRequiredChanged: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        sigsRequired: 'u64',
+      },
+      ProposalApprovalVote: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        signer: 'AccountId32',
+        proposalId: 'u64',
+      },
+      ProposalRejectionVote: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        signer: 'AccountId32',
+        proposalId: 'u64',
+      },
+      ProposalApproved: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        proposalId: 'u64',
+      },
+      ProposalRejected: {
+        callerDid: 'Option<PolymeshPrimitivesIdentityId>',
+        multisig: 'AccountId32',
+        proposalId: 'u64',
+      },
+      MultiSigAddedAdmin: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        adminDid: 'PolymeshPrimitivesIdentityId',
+      },
+      MultiSigRemovedAdmin: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        adminDid: 'PolymeshPrimitivesIdentityId',
+      },
+      MultiSigRemovedPayingDid: {
+        callerDid: 'PolymeshPrimitivesIdentityId',
+        multisig: 'AccountId32',
+        payingDid: 'PolymeshPrimitivesIdentityId',
+      },
     },
   },
   /**
-   * Lookup95: polymesh_primitives::secondary_key::Signatory<sp_core::crypto::AccountId32>
-   **/
-  PolymeshPrimitivesSecondaryKeySignatory: {
-    _enum: {
-      Identity: 'PolymeshPrimitivesIdentityId',
-      Account: 'AccountId32',
-    },
-  },
-  /**
-   * Lookup96: substrate_validator_set::pallet::Event<T>
+   * Lookup99: substrate_validator_set::pallet::Event<T>
    **/
   SubstrateValidatorSetEvent: {
     _enum: {
@@ -870,7 +916,7 @@ export default {
     },
   },
   /**
-   * Lookup97: pallet_offences::pallet::Event
+   * Lookup100: pallet_offences::pallet::Event
    **/
   PalletOffencesEvent: {
     _enum: {
@@ -881,7 +927,7 @@ export default {
     },
   },
   /**
-   * Lookup99: pallet_session::pallet::Event
+   * Lookup101: pallet_session::pallet::Event
    **/
   PalletSessionEvent: {
     _enum: {
@@ -891,7 +937,7 @@ export default {
     },
   },
   /**
-   * Lookup100: pallet_grandpa::pallet::Event
+   * Lookup102: pallet_grandpa::pallet::Event
    **/
   PalletGrandpaEvent: {
     _enum: {
@@ -903,15 +949,15 @@ export default {
     },
   },
   /**
-   * Lookup103: sp_consensus_grandpa::app::Public
+   * Lookup105: sp_consensus_grandpa::app::Public
    **/
   SpConsensusGrandpaAppPublic: 'SpCoreEd25519Public',
   /**
-   * Lookup104: sp_core::ed25519::Public
+   * Lookup106: sp_core::ed25519::Public
    **/
   SpCoreEd25519Public: '[u8;32]',
   /**
-   * Lookup105: pallet_im_online::pallet::Event<T>
+   * Lookup107: pallet_im_online::pallet::Event<T>
    **/
   PalletImOnlineEvent: {
     _enum: {
@@ -925,15 +971,15 @@ export default {
     },
   },
   /**
-   * Lookup106: pallet_im_online::sr25519::app_sr25519::Public
+   * Lookup108: pallet_im_online::sr25519::app_sr25519::Public
    **/
   PalletImOnlineSr25519AppSr25519Public: 'SpCoreSr25519Public',
   /**
-   * Lookup107: sp_core::sr25519::Public
+   * Lookup109: sp_core::sr25519::Public
    **/
   SpCoreSr25519Public: '[u8;32]',
   /**
-   * Lookup110: pallet_sudo::RawEvent<sp_core::crypto::AccountId32>
+   * Lookup112: pallet_sudo::RawEvent<sp_core::crypto::AccountId32>
    **/
   PalletSudoRawEvent: {
     _enum: {
@@ -943,62 +989,62 @@ export default {
     },
   },
   /**
-   * Lookup111: polymesh_common_utilities::traits::asset::RawEvent<Moment, sp_core::crypto::AccountId32>
+   * Lookup113: polymesh_common_utilities::traits::asset::RawEvent<Moment>
    **/
   PolymeshCommonUtilitiesAssetRawEvent: {
     _enum: {
       AssetCreated:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,bool,PolymeshPrimitivesAssetAssetType,PolymeshPrimitivesIdentityId,Bytes,Vec<PolymeshPrimitivesAssetIdentifier>,Option<Bytes>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,bool,PolymeshPrimitivesAssetAssetType,PolymeshPrimitivesIdentityId,Bytes,Vec<PolymeshPrimitivesAssetIdentifier>,Option<Bytes>)',
       IdentifiersUpdated:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Vec<PolymeshPrimitivesAssetIdentifier>)',
-      DivisibilityChanged: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,bool)',
-      TransferWithData:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityId,u128,Bytes)',
-      IsIssuable: '(PolymeshPrimitivesTicker,bool)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<PolymeshPrimitivesAssetIdentifier>)',
+      DivisibilityChanged: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,bool)',
       TickerRegistered: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Option<u64>)',
       TickerTransferred:
         '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId)',
       AssetOwnershipTransferred:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId)',
-      AssetFrozen: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
-      AssetUnfrozen: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
-      AssetRenamed: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Bytes)',
-      FundingRoundSet: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Bytes)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesIdentityId)',
+      AssetFrozen: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
+      AssetUnfrozen: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
+      AssetRenamed: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Bytes)',
+      FundingRoundSet: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Bytes)',
       DocumentAdded:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u32,PolymeshPrimitivesDocument)',
-      DocumentRemoved: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u32)',
-      ExtensionRemoved: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,AccountId32)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u32,PolymeshPrimitivesDocument)',
+      DocumentRemoved: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u32)',
       ControllerTransfer:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityIdPortfolioId,u128)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesIdentityIdPortfolioId,u128)',
       CustomAssetTypeExists: '(PolymeshPrimitivesIdentityId,u32,Bytes)',
       CustomAssetTypeRegistered: '(PolymeshPrimitivesIdentityId,u32,Bytes)',
       SetAssetMetadataValue:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Bytes,Option<PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Bytes,Option<PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail>)',
       SetAssetMetadataValueDetails:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail)',
       RegisterAssetMetadataLocalType:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Bytes,u64,PolymeshPrimitivesAssetMetadataAssetMetadataSpec)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Bytes,u64,PolymeshPrimitivesAssetMetadataAssetMetadataSpec)',
       RegisterAssetMetadataGlobalType:
         '(Bytes,u64,PolymeshPrimitivesAssetMetadataAssetMetadataSpec)',
       AssetTypeChanged:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesAssetAssetType)',
-      LocalMetadataKeyDeleted: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u64)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesAssetAssetType)',
+      LocalMetadataKeyDeleted: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u64)',
       MetadataValueDeleted:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesAssetMetadataAssetMetadataKey)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesAssetMetadataAssetMetadataKey)',
       AssetBalanceUpdated:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u128,Option<PolymeshPrimitivesIdentityIdPortfolioId>,Option<PolymeshPrimitivesIdentityIdPortfolioId>,PolymeshPrimitivesPortfolioPortfolioUpdateReason)',
-      AssetAffirmationExemption: 'PolymeshPrimitivesTicker',
-      RemoveAssetAffirmationExemption: 'PolymeshPrimitivesTicker',
-      PreApprovedAsset: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
-      RemovePreApprovedAsset: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u128,Option<PolymeshPrimitivesIdentityIdPortfolioId>,Option<PolymeshPrimitivesIdentityIdPortfolioId>,PolymeshPrimitivesPortfolioPortfolioUpdateReason)',
+      AssetAffirmationExemption: 'PolymeshPrimitivesAssetAssetId',
+      RemoveAssetAffirmationExemption: 'PolymeshPrimitivesAssetAssetId',
+      PreApprovedAsset: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
+      RemovePreApprovedAsset: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
       AssetMediatorsAdded:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,BTreeSet<PolymeshPrimitivesIdentityId>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,BTreeSet<PolymeshPrimitivesIdentityId>)',
       AssetMediatorsRemoved:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,BTreeSet<PolymeshPrimitivesIdentityId>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,BTreeSet<PolymeshPrimitivesIdentityId>)',
+      TickerLinkedToAsset:
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesAssetAssetId)',
+      TickerUnlinkedFromAsset:
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesAssetAssetId)',
     },
   },
   /**
-   * Lookup112: polymesh_primitives::asset::AssetType
+   * Lookup114: polymesh_primitives::asset::AssetType
    **/
   PolymeshPrimitivesAssetAssetType: {
     _enum: {
@@ -1017,7 +1063,7 @@ export default {
     },
   },
   /**
-   * Lookup114: polymesh_primitives::asset::NonFungibleType
+   * Lookup116: polymesh_primitives::asset::NonFungibleType
    **/
   PolymeshPrimitivesAssetNonFungibleType: {
     _enum: {
@@ -1028,7 +1074,7 @@ export default {
     },
   },
   /**
-   * Lookup117: polymesh_primitives::asset_identifier::AssetIdentifier
+   * Lookup119: polymesh_primitives::asset_identifier::AssetIdentifier
    **/
   PolymeshPrimitivesAssetIdentifier: {
     _enum: {
@@ -1040,7 +1086,7 @@ export default {
     },
   },
   /**
-   * Lookup123: polymesh_primitives::document::Document
+   * Lookup125: polymesh_primitives::document::Document
    **/
   PolymeshPrimitivesDocument: {
     uri: 'Bytes',
@@ -1050,7 +1096,7 @@ export default {
     filingDate: 'Option<u64>',
   },
   /**
-   * Lookup125: polymesh_primitives::document_hash::DocumentHash
+   * Lookup127: polymesh_primitives::document_hash::DocumentHash
    **/
   PolymeshPrimitivesDocumentHash: {
     _enum: {
@@ -1066,14 +1112,14 @@ export default {
     },
   },
   /**
-   * Lookup136: polymesh_primitives::asset_metadata::AssetMetadataValueDetail<Moment>
+   * Lookup138: polymesh_primitives::asset_metadata::AssetMetadataValueDetail<Moment>
    **/
   PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail: {
     expire: 'Option<u64>',
     lockStatus: 'PolymeshPrimitivesAssetMetadataAssetMetadataLockStatus',
   },
   /**
-   * Lookup137: polymesh_primitives::asset_metadata::AssetMetadataLockStatus<Moment>
+   * Lookup139: polymesh_primitives::asset_metadata::AssetMetadataLockStatus<Moment>
    **/
   PolymeshPrimitivesAssetMetadataAssetMetadataLockStatus: {
     _enum: {
@@ -1083,7 +1129,7 @@ export default {
     },
   },
   /**
-   * Lookup140: polymesh_primitives::asset_metadata::AssetMetadataSpec
+   * Lookup142: polymesh_primitives::asset_metadata::AssetMetadataSpec
    **/
   PolymeshPrimitivesAssetMetadataAssetMetadataSpec: {
     url: 'Option<Bytes>',
@@ -1091,7 +1137,7 @@ export default {
     typeDef: 'Option<Bytes>',
   },
   /**
-   * Lookup147: polymesh_primitives::asset_metadata::AssetMetadataKey
+   * Lookup149: polymesh_primitives::asset_metadata::AssetMetadataKey
    **/
   PolymeshPrimitivesAssetMetadataAssetMetadataKey: {
     _enum: {
@@ -1100,7 +1146,7 @@ export default {
     },
   },
   /**
-   * Lookup149: polymesh_primitives::portfolio::PortfolioUpdateReason
+   * Lookup151: polymesh_primitives::portfolio::PortfolioUpdateReason
    **/
   PolymeshPrimitivesPortfolioPortfolioUpdateReason: {
     _enum: {
@@ -1116,7 +1162,7 @@ export default {
     },
   },
   /**
-   * Lookup153: pallet_corporate_actions::distribution::Event
+   * Lookup155: pallet_corporate_actions::distribution::Event
    **/
   PalletCorporateActionsDistributionEvent: {
     _enum: {
@@ -1129,22 +1175,22 @@ export default {
     },
   },
   /**
-   * Lookup154: polymesh_primitives::event_only::EventOnly<polymesh_primitives::identity_id::IdentityId>
+   * Lookup156: polymesh_primitives::event_only::EventOnly<polymesh_primitives::identity_id::IdentityId>
    **/
   PolymeshPrimitivesEventOnly: 'PolymeshPrimitivesIdentityId',
   /**
-   * Lookup155: pallet_corporate_actions::CAId
+   * Lookup157: pallet_corporate_actions::CAId
    **/
   PalletCorporateActionsCaId: {
-    ticker: 'PolymeshPrimitivesTicker',
+    assetId: 'PolymeshPrimitivesAssetAssetId',
     localId: 'u32',
   },
   /**
-   * Lookup157: pallet_corporate_actions::distribution::Distribution
+   * Lookup159: pallet_corporate_actions::distribution::Distribution
    **/
   PalletCorporateActionsDistribution: {
     from: 'PolymeshPrimitivesIdentityIdPortfolioId',
-    currency: 'PolymeshPrimitivesTicker',
+    currency: 'PolymeshPrimitivesAssetAssetId',
     perShare: 'u128',
     amount: 'u128',
     remaining: 'u128',
@@ -1153,48 +1199,49 @@ export default {
     expiresAt: 'Option<u64>',
   },
   /**
-   * Lookup159: polymesh_common_utilities::traits::checkpoint::Event
+   * Lookup161: polymesh_common_utilities::traits::checkpoint::Event
    **/
   PolymeshCommonUtilitiesCheckpointEvent: {
     _enum: {
       CheckpointCreated:
-        '(Option<PolymeshPrimitivesIdentityId>,PolymeshPrimitivesTicker,u64,u128,u64)',
+        '(Option<PolymeshPrimitivesIdentityId>,PolymeshPrimitivesAssetAssetId,u64,u128,u64)',
       MaximumSchedulesComplexityChanged: '(PolymeshPrimitivesIdentityId,u64)',
       ScheduleCreated:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u64,PolymeshCommonUtilitiesCheckpointScheduleCheckpoints)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u64,PolymeshCommonUtilitiesCheckpointScheduleCheckpoints)',
       ScheduleRemoved:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u64,PolymeshCommonUtilitiesCheckpointScheduleCheckpoints)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u64,PolymeshCommonUtilitiesCheckpointScheduleCheckpoints)',
     },
   },
   /**
-   * Lookup162: polymesh_common_utilities::traits::checkpoint::ScheduleCheckpoints
+   * Lookup164: polymesh_common_utilities::traits::checkpoint::ScheduleCheckpoints
    **/
   PolymeshCommonUtilitiesCheckpointScheduleCheckpoints: {
     pending: 'BTreeSet<u64>',
   },
   /**
-   * Lookup165: polymesh_common_utilities::traits::compliance_manager::Event
+   * Lookup167: polymesh_common_utilities::traits::compliance_manager::Event
    **/
   PolymeshCommonUtilitiesComplianceManagerEvent: {
     _enum: {
       ComplianceRequirementCreated:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesComplianceManagerComplianceRequirement)',
-      ComplianceRequirementRemoved: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u32)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesComplianceManagerComplianceRequirement)',
+      ComplianceRequirementRemoved:
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u32)',
       AssetComplianceReplaced:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Vec<PolymeshPrimitivesComplianceManagerComplianceRequirement>)',
-      AssetComplianceReset: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
-      AssetComplianceResumed: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
-      AssetCompliancePaused: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<PolymeshPrimitivesComplianceManagerComplianceRequirement>)',
+      AssetComplianceReset: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
+      AssetComplianceResumed: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
+      AssetCompliancePaused: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId)',
       ComplianceRequirementChanged:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesComplianceManagerComplianceRequirement)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesComplianceManagerComplianceRequirement)',
       TrustedDefaultClaimIssuerAdded:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesConditionTrustedIssuer)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesConditionTrustedIssuer)',
       TrustedDefaultClaimIssuerRemoved:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesIdentityId)',
     },
   },
   /**
-   * Lookup166: polymesh_primitives::compliance_manager::ComplianceRequirement
+   * Lookup168: polymesh_primitives::compliance_manager::ComplianceRequirement
    **/
   PolymeshPrimitivesComplianceManagerComplianceRequirement: {
     senderConditions: 'Vec<PolymeshPrimitivesCondition>',
@@ -1202,14 +1249,14 @@ export default {
     id: 'u32',
   },
   /**
-   * Lookup168: polymesh_primitives::condition::Condition
+   * Lookup170: polymesh_primitives::condition::Condition
    **/
   PolymeshPrimitivesCondition: {
     conditionType: 'PolymeshPrimitivesConditionConditionType',
     issuers: 'Vec<PolymeshPrimitivesConditionTrustedIssuer>',
   },
   /**
-   * Lookup169: polymesh_primitives::condition::ConditionType
+   * Lookup171: polymesh_primitives::condition::ConditionType
    **/
   PolymeshPrimitivesConditionConditionType: {
     _enum: {
@@ -1221,7 +1268,7 @@ export default {
     },
   },
   /**
-   * Lookup171: polymesh_primitives::condition::TargetIdentity
+   * Lookup173: polymesh_primitives::condition::TargetIdentity
    **/
   PolymeshPrimitivesConditionTargetIdentity: {
     _enum: {
@@ -1230,14 +1277,14 @@ export default {
     },
   },
   /**
-   * Lookup173: polymesh_primitives::condition::TrustedIssuer
+   * Lookup175: polymesh_primitives::condition::TrustedIssuer
    **/
   PolymeshPrimitivesConditionTrustedIssuer: {
     issuer: 'PolymeshPrimitivesIdentityId',
     trustedFor: 'PolymeshPrimitivesConditionTrustedFor',
   },
   /**
-   * Lookup174: polymesh_primitives::condition::TrustedFor
+   * Lookup176: polymesh_primitives::condition::TrustedFor
    **/
   PolymeshPrimitivesConditionTrustedFor: {
     _enum: {
@@ -1246,7 +1293,7 @@ export default {
     },
   },
   /**
-   * Lookup176: polymesh_primitives::identity_claim::ClaimType
+   * Lookup178: polymesh_primitives::identity_claim::ClaimType
    **/
   PolymeshPrimitivesIdentityClaimClaimType: {
     _enum: {
@@ -1263,17 +1310,17 @@ export default {
     },
   },
   /**
-   * Lookup178: pallet_corporate_actions::Event
+   * Lookup180: pallet_corporate_actions::Event
    **/
   PalletCorporateActionsEvent: {
     _enum: {
       MaxDetailsLengthChanged: '(PolymeshPrimitivesIdentityId,u32)',
       DefaultTargetIdentitiesChanged:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PalletCorporateActionsTargetIdentities)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PalletCorporateActionsTargetIdentities)',
       DefaultWithholdingTaxChanged:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Permill)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Permill)',
       DidWithholdingTaxChanged:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId,Option<Permill>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesIdentityId,Option<Permill>)',
       CAInitiated:
         '(PolymeshPrimitivesEventOnly,PalletCorporateActionsCaId,PalletCorporateActionsCorporateAction,Bytes)',
       CALinkedToDoc: '(PolymeshPrimitivesIdentityId,PalletCorporateActionsCaId,Vec<u32>)',
@@ -1283,20 +1330,20 @@ export default {
     },
   },
   /**
-   * Lookup179: pallet_corporate_actions::TargetIdentities
+   * Lookup181: pallet_corporate_actions::TargetIdentities
    **/
   PalletCorporateActionsTargetIdentities: {
     identities: 'Vec<PolymeshPrimitivesIdentityId>',
     treatment: 'PalletCorporateActionsTargetTreatment',
   },
   /**
-   * Lookup180: pallet_corporate_actions::TargetTreatment
+   * Lookup182: pallet_corporate_actions::TargetTreatment
    **/
   PalletCorporateActionsTargetTreatment: {
     _enum: ['Include', 'Exclude'],
   },
   /**
-   * Lookup182: pallet_corporate_actions::CorporateAction
+   * Lookup184: pallet_corporate_actions::CorporateAction
    **/
   PalletCorporateActionsCorporateAction: {
     kind: 'PalletCorporateActionsCaKind',
@@ -1307,7 +1354,7 @@ export default {
     withholdingTax: 'Vec<(PolymeshPrimitivesIdentityId,Permill)>',
   },
   /**
-   * Lookup183: pallet_corporate_actions::CAKind
+   * Lookup185: pallet_corporate_actions::CAKind
    **/
   PalletCorporateActionsCaKind: {
     _enum: [
@@ -1319,14 +1366,14 @@ export default {
     ],
   },
   /**
-   * Lookup185: pallet_corporate_actions::RecordDate
+   * Lookup187: pallet_corporate_actions::RecordDate
    **/
   PalletCorporateActionsRecordDate: {
     date: 'u64',
     checkpoint: 'PalletCorporateActionsCaCheckpoint',
   },
   /**
-   * Lookup186: pallet_corporate_actions::CACheckpoint
+   * Lookup188: pallet_corporate_actions::CACheckpoint
    **/
   PalletCorporateActionsCaCheckpoint: {
     _enum: {
@@ -1335,7 +1382,7 @@ export default {
     },
   },
   /**
-   * Lookup191: pallet_corporate_actions::ballot::Event
+   * Lookup193: pallet_corporate_actions::ballot::Event
    **/
   PalletCorporateActionsBallotEvent: {
     _enum: {
@@ -1352,21 +1399,21 @@ export default {
     },
   },
   /**
-   * Lookup192: pallet_corporate_actions::ballot::BallotTimeRange
+   * Lookup194: pallet_corporate_actions::ballot::BallotTimeRange
    **/
   PalletCorporateActionsBallotBallotTimeRange: {
     start: 'u64',
     end: 'u64',
   },
   /**
-   * Lookup193: pallet_corporate_actions::ballot::BallotMeta
+   * Lookup195: pallet_corporate_actions::ballot::BallotMeta
    **/
   PalletCorporateActionsBallotBallotMeta: {
     title: 'Bytes',
     motions: 'Vec<PalletCorporateActionsBallotMotion>',
   },
   /**
-   * Lookup196: pallet_corporate_actions::ballot::Motion
+   * Lookup198: pallet_corporate_actions::ballot::Motion
    **/
   PalletCorporateActionsBallotMotion: {
     title: 'Bytes',
@@ -1374,14 +1421,14 @@ export default {
     choices: 'Vec<Bytes>',
   },
   /**
-   * Lookup202: pallet_corporate_actions::ballot::BallotVote
+   * Lookup204: pallet_corporate_actions::ballot::BallotVote
    **/
   PalletCorporateActionsBallotBallotVote: {
     power: 'u128',
     fallback: 'Option<u16>',
   },
   /**
-   * Lookup205: pallet_pips::RawEvent<sp_core::crypto::AccountId32, BlockNumber>
+   * Lookup207: pallet_pips::RawEvent<sp_core::crypto::AccountId32, BlockNumber>
    **/
   PalletPipsRawEvent: {
     _enum: {
@@ -1411,7 +1458,7 @@ export default {
     },
   },
   /**
-   * Lookup206: pallet_pips::Proposer<sp_core::crypto::AccountId32>
+   * Lookup208: pallet_pips::Proposer<sp_core::crypto::AccountId32>
    **/
   PalletPipsProposer: {
     _enum: {
@@ -1420,13 +1467,13 @@ export default {
     },
   },
   /**
-   * Lookup207: pallet_pips::Committee
+   * Lookup209: pallet_pips::Committee
    **/
   PalletPipsCommittee: {
     _enum: ['Technical', 'Upgrade'],
   },
   /**
-   * Lookup211: pallet_pips::ProposalData
+   * Lookup213: pallet_pips::ProposalData
    **/
   PalletPipsProposalData: {
     _enum: {
@@ -1435,20 +1482,20 @@ export default {
     },
   },
   /**
-   * Lookup212: pallet_pips::ProposalState
+   * Lookup214: pallet_pips::ProposalState
    **/
   PalletPipsProposalState: {
     _enum: ['Pending', 'Rejected', 'Scheduled', 'Failed', 'Executed', 'Expired'],
   },
   /**
-   * Lookup215: pallet_pips::SnapshottedPip
+   * Lookup217: pallet_pips::SnapshottedPip
    **/
   PalletPipsSnapshottedPip: {
     id: 'u32',
     weight: '(bool,u128)',
   },
   /**
-   * Lookup221: polymesh_common_utilities::traits::portfolio::Event
+   * Lookup223: polymesh_common_utilities::traits::portfolio::Event
    **/
   PolymeshCommonUtilitiesPortfolioEvent: {
     _enum: {
@@ -1461,32 +1508,32 @@ export default {
       FundsMovedBetweenPortfolios:
         '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityIdPortfolioId,PolymeshPrimitivesIdentityIdPortfolioId,PolymeshPrimitivesPortfolioFundDescription,Option<PolymeshPrimitivesMemo>)',
       PreApprovedPortfolio:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityIdPortfolioId,PolymeshPrimitivesTicker)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityIdPortfolioId,PolymeshPrimitivesAssetAssetId)',
       RevokePreApprovedPortfolio:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityIdPortfolioId,PolymeshPrimitivesTicker)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityIdPortfolioId,PolymeshPrimitivesAssetAssetId)',
     },
   },
   /**
-   * Lookup225: polymesh_primitives::portfolio::FundDescription
+   * Lookup227: polymesh_primitives::portfolio::FundDescription
    **/
   PolymeshPrimitivesPortfolioFundDescription: {
     _enum: {
       Fungible: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         amount: 'u128',
       },
       NonFungible: 'PolymeshPrimitivesNftNfTs',
     },
   },
   /**
-   * Lookup226: polymesh_primitives::nft::NFTs
+   * Lookup228: polymesh_primitives::nft::NFTs
    **/
   PolymeshPrimitivesNftNfTs: {
-    ticker: 'PolymeshPrimitivesTicker',
+    assetId: 'PolymeshPrimitivesAssetAssetId',
     ids: 'Vec<u64>',
   },
   /**
-   * Lookup229: pallet_protocol_fee::RawEvent<sp_core::crypto::AccountId32>
+   * Lookup231: pallet_protocol_fee::RawEvent<sp_core::crypto::AccountId32>
    **/
   PalletProtocolFeeRawEvent: {
     _enum: {
@@ -1496,11 +1543,11 @@ export default {
     },
   },
   /**
-   * Lookup230: polymesh_primitives::PosRatio
+   * Lookup232: polymesh_primitives::PosRatio
    **/
   PolymeshPrimitivesPosRatio: '(u32,u32)',
   /**
-   * Lookup231: pallet_scheduler::pallet::Event<T>
+   * Lookup233: pallet_scheduler::pallet::Event<T>
    **/
   PalletSchedulerEvent: {
     _enum: {
@@ -1532,7 +1579,7 @@ export default {
     },
   },
   /**
-   * Lookup234: polymesh_common_utilities::traits::settlement::RawEvent<Moment, BlockNumber, sp_core::crypto::AccountId32>
+   * Lookup236: polymesh_common_utilities::traits::settlement::RawEvent<Moment, BlockNumber, sp_core::crypto::AccountId32>
    **/
   PolymeshCommonUtilitiesSettlementRawEvent: {
     _enum: {
@@ -1547,19 +1594,18 @@ export default {
       InstructionRejected: '(PolymeshPrimitivesIdentityId,u64)',
       ReceiptClaimed:
         '(PolymeshPrimitivesIdentityId,u64,u64,u64,AccountId32,Option<PolymeshPrimitivesSettlementReceiptMetadata>)',
-      VenueFiltering: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,bool)',
-      VenuesAllowed: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Vec<u64>)',
-      VenuesBlocked: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,Vec<u64>)',
+      VenueFiltering: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,bool)',
+      VenuesAllowed: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<u64>)',
+      VenuesBlocked: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<u64>)',
       LegFailedExecution: '(PolymeshPrimitivesIdentityId,u64,u64)',
-      InstructionFailed: '(PolymeshPrimitivesIdentityId,u64)',
       InstructionExecuted: '(PolymeshPrimitivesIdentityId,u64)',
-      VenueUnauthorized: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u64)',
-      SchedulingFailed: 'SpRuntimeDispatchError',
+      VenueUnauthorized: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u64)',
+      SchedulingFailed: '(u64,SpRuntimeDispatchError)',
       InstructionRescheduled: '(PolymeshPrimitivesIdentityId,u64)',
       VenueSignersUpdated: '(PolymeshPrimitivesIdentityId,u64,Vec<AccountId32>,bool)',
       SettlementManuallyExecuted: '(PolymeshPrimitivesIdentityId,u64)',
       InstructionCreated:
-        '(PolymeshPrimitivesIdentityId,u64,u64,PolymeshPrimitivesSettlementSettlementType,Option<u64>,Option<u64>,Vec<PolymeshPrimitivesSettlementLeg>,Option<PolymeshPrimitivesMemo>)',
+        '(PolymeshPrimitivesIdentityId,Option<u64>,u64,PolymeshPrimitivesSettlementSettlementType,Option<u64>,Option<u64>,Vec<PolymeshPrimitivesSettlementLeg>,Option<PolymeshPrimitivesMemo>)',
       FailedToExecuteInstruction: '(u64,SpRuntimeDispatchError)',
       InstructionAutomaticallyAffirmed:
         '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesIdentityIdPortfolioId,u64)',
@@ -1569,17 +1615,17 @@ export default {
     },
   },
   /**
-   * Lookup237: polymesh_primitives::settlement::VenueType
+   * Lookup239: polymesh_primitives::settlement::VenueType
    **/
   PolymeshPrimitivesSettlementVenueType: {
     _enum: ['Other', 'Distribution', 'Sto', 'Exchange'],
   },
   /**
-   * Lookup240: polymesh_primitives::settlement::ReceiptMetadata
+   * Lookup242: polymesh_primitives::settlement::ReceiptMetadata
    **/
   PolymeshPrimitivesSettlementReceiptMetadata: '[u8;32]',
   /**
-   * Lookup242: polymesh_primitives::settlement::SettlementType<BlockNumber>
+   * Lookup245: polymesh_primitives::settlement::SettlementType<BlockNumber>
    **/
   PolymeshPrimitivesSettlementSettlementType: {
     _enum: {
@@ -1589,14 +1635,14 @@ export default {
     },
   },
   /**
-   * Lookup244: polymesh_primitives::settlement::Leg
+   * Lookup247: polymesh_primitives::settlement::Leg
    **/
   PolymeshPrimitivesSettlementLeg: {
     _enum: {
       Fungible: {
         sender: 'PolymeshPrimitivesIdentityIdPortfolioId',
         receiver: 'PolymeshPrimitivesIdentityIdPortfolioId',
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         amount: 'u128',
       },
       NonFungible: {
@@ -1613,18 +1659,18 @@ export default {
     },
   },
   /**
-   * Lookup245: polymesh_common_utilities::traits::statistics::Event
+   * Lookup248: polymesh_common_utilities::traits::statistics::Event
    **/
   PolymeshCommonUtilitiesStatisticsEvent: {
     _enum: {
       StatTypesAdded:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesStatisticsAssetScope,Vec<PolymeshPrimitivesStatisticsStatType>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<PolymeshPrimitivesStatisticsStatType>)',
       StatTypesRemoved:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesStatisticsAssetScope,Vec<PolymeshPrimitivesStatisticsStatType>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<PolymeshPrimitivesStatisticsStatType>)',
       AssetStatsUpdated:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesStatisticsAssetScope,PolymeshPrimitivesStatisticsStatType,Vec<PolymeshPrimitivesStatisticsStatUpdate>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesStatisticsStatType,Vec<PolymeshPrimitivesStatisticsStatUpdate>)',
       SetAssetTransferCompliance:
-        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesStatisticsAssetScope,Vec<PolymeshPrimitivesTransferComplianceTransferCondition>)',
+        '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,Vec<PolymeshPrimitivesTransferComplianceTransferCondition>)',
       TransferConditionExemptionsAdded:
         '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTransferComplianceTransferConditionExemptKey,Vec<PolymeshPrimitivesIdentityId>)',
       TransferConditionExemptionsRemoved:
@@ -1632,35 +1678,27 @@ export default {
     },
   },
   /**
-   * Lookup246: polymesh_primitives::statistics::AssetScope
-   **/
-  PolymeshPrimitivesStatisticsAssetScope: {
-    _enum: {
-      Ticker: 'PolymeshPrimitivesTicker',
-    },
-  },
-  /**
-   * Lookup248: polymesh_primitives::statistics::StatType
+   * Lookup250: polymesh_primitives::statistics::StatType
    **/
   PolymeshPrimitivesStatisticsStatType: {
-    op: 'PolymeshPrimitivesStatisticsStatOpType',
+    operationType: 'PolymeshPrimitivesStatisticsStatOpType',
     claimIssuer: 'Option<(PolymeshPrimitivesIdentityClaimClaimType,PolymeshPrimitivesIdentityId)>',
   },
   /**
-   * Lookup249: polymesh_primitives::statistics::StatOpType
+   * Lookup251: polymesh_primitives::statistics::StatOpType
    **/
   PolymeshPrimitivesStatisticsStatOpType: {
     _enum: ['Count', 'Balance'],
   },
   /**
-   * Lookup253: polymesh_primitives::statistics::StatUpdate
+   * Lookup255: polymesh_primitives::statistics::StatUpdate
    **/
   PolymeshPrimitivesStatisticsStatUpdate: {
     key2: 'PolymeshPrimitivesStatisticsStat2ndKey',
     value: 'Option<u128>',
   },
   /**
-   * Lookup254: polymesh_primitives::statistics::Stat2ndKey
+   * Lookup256: polymesh_primitives::statistics::Stat2ndKey
    **/
   PolymeshPrimitivesStatisticsStat2ndKey: {
     _enum: {
@@ -1669,7 +1707,7 @@ export default {
     },
   },
   /**
-   * Lookup255: polymesh_primitives::statistics::StatClaim
+   * Lookup257: polymesh_primitives::statistics::StatClaim
    **/
   PolymeshPrimitivesStatisticsStatClaim: {
     _enum: {
@@ -1679,7 +1717,7 @@ export default {
     },
   },
   /**
-   * Lookup259: polymesh_primitives::transfer_compliance::TransferCondition
+   * Lookup261: polymesh_primitives::transfer_compliance::TransferCondition
    **/
   PolymeshPrimitivesTransferComplianceTransferCondition: {
     _enum: {
@@ -1692,21 +1730,21 @@ export default {
     },
   },
   /**
-   * Lookup260: polymesh_primitives::transfer_compliance::TransferConditionExemptKey
+   * Lookup262: polymesh_primitives::transfer_compliance::TransferConditionExemptKey
    **/
   PolymeshPrimitivesTransferComplianceTransferConditionExemptKey: {
-    asset: 'PolymeshPrimitivesStatisticsAssetScope',
+    assetId: 'PolymeshPrimitivesAssetAssetId',
     op: 'PolymeshPrimitivesStatisticsStatOpType',
     claimType: 'Option<PolymeshPrimitivesIdentityClaimClaimType>',
   },
   /**
-   * Lookup262: pallet_sto::RawEvent<Moment>
+   * Lookup264: pallet_sto::RawEvent<Moment>
    **/
   PalletStoRawEvent: {
     _enum: {
       FundraiserCreated: '(PolymeshPrimitivesIdentityId,u64,Bytes,PalletStoFundraiser)',
       Invested:
-        '(PolymeshPrimitivesIdentityId,u64,PolymeshPrimitivesTicker,PolymeshPrimitivesTicker,u128,u128)',
+        '(PolymeshPrimitivesIdentityId,u64,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesAssetAssetId,u128,u128)',
       FundraiserFrozen: '(PolymeshPrimitivesIdentityId,u64)',
       FundraiserUnfrozen: '(PolymeshPrimitivesIdentityId,u64)',
       FundraiserWindowModified: '(PolymeshPrimitivesEventOnly,u64,u64,Option<u64>,u64,Option<u64>)',
@@ -1714,14 +1752,14 @@ export default {
     },
   },
   /**
-   * Lookup265: pallet_sto::Fundraiser<Moment>
+   * Lookup267: pallet_sto::Fundraiser<Moment>
    **/
   PalletStoFundraiser: {
     creator: 'PolymeshPrimitivesIdentityId',
     offeringPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
-    offeringAsset: 'PolymeshPrimitivesTicker',
+    offeringAsset: 'PolymeshPrimitivesAssetAssetId',
     raisingPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
-    raisingAsset: 'PolymeshPrimitivesTicker',
+    raisingAsset: 'PolymeshPrimitivesAssetAssetId',
     tiers: 'Vec<PalletStoFundraiserTier>',
     venueId: 'u64',
     start: 'u64',
@@ -1730,7 +1768,7 @@ export default {
     minimumInvestment: 'u128',
   },
   /**
-   * Lookup267: pallet_sto::FundraiserTier
+   * Lookup269: pallet_sto::FundraiserTier
    **/
   PalletStoFundraiserTier: {
     total: 'u128',
@@ -1738,13 +1776,13 @@ export default {
     remaining: 'u128',
   },
   /**
-   * Lookup268: pallet_sto::FundraiserStatus
+   * Lookup270: pallet_sto::FundraiserStatus
    **/
   PalletStoFundraiserStatus: {
     _enum: ['Live', 'Frozen', 'Closed', 'ClosedEarly'],
   },
   /**
-   * Lookup269: pallet_treasury::RawEvent<Balance, sp_core::crypto::AccountId32>
+   * Lookup271: pallet_treasury::RawEvent<Balance, sp_core::crypto::AccountId32>
    **/
   PalletTreasuryRawEvent: {
     _enum: {
@@ -1756,7 +1794,7 @@ export default {
     },
   },
   /**
-   * Lookup270: pallet_utility::pallet::Event<T>
+   * Lookup272: pallet_utility::pallet::Event<T>
    **/
   PalletUtilityEvent: {
     _enum: {
@@ -1778,13 +1816,10 @@ export default {
         target: 'AccountId32',
         result: 'Result<Null, SpRuntimeDispatchError>',
       },
-      BatchInterruptedOld: '(Vec<u32>,(u32,SpRuntimeDispatchError))',
-      BatchOptimisticFailed: '(Vec<u32>,Vec<(u32,SpRuntimeDispatchError)>)',
-      BatchCompletedOld: 'Vec<u32>',
     },
   },
   /**
-   * Lookup274: polymesh_common_utilities::traits::base::Event
+   * Lookup273: polymesh_common_utilities::traits::base::Event
    **/
   PolymeshCommonUtilitiesBaseEvent: {
     _enum: {
@@ -1792,24 +1827,24 @@ export default {
     },
   },
   /**
-   * Lookup276: polymesh_common_utilities::traits::external_agents::Event
+   * Lookup275: polymesh_common_utilities::traits::external_agents::Event
    **/
   PolymeshCommonUtilitiesExternalAgentsEvent: {
     _enum: {
       GroupCreated:
-        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesTicker,u32,PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions)',
+        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesAssetAssetId,u32,PolymeshPrimitivesSecondaryKeyExtrinsicPermissions)',
       GroupPermissionsUpdated:
-        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesTicker,u32,PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions)',
+        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesAssetAssetId,u32,PolymeshPrimitivesSecondaryKeyExtrinsicPermissions)',
       AgentAdded:
-        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesTicker,PolymeshPrimitivesAgentAgentGroup)',
+        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesAgentAgentGroup)',
       AgentRemoved:
-        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId)',
+        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesIdentityId)',
       GroupChanged:
-        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesTicker,PolymeshPrimitivesIdentityId,PolymeshPrimitivesAgentAgentGroup)',
+        '(PolymeshPrimitivesEventOnly,PolymeshPrimitivesAssetAssetId,PolymeshPrimitivesIdentityId,PolymeshPrimitivesAgentAgentGroup)',
     },
   },
   /**
-   * Lookup277: polymesh_common_utilities::traits::relayer::RawEvent<sp_core::crypto::AccountId32>
+   * Lookup276: polymesh_common_utilities::traits::relayer::RawEvent<sp_core::crypto::AccountId32>
    **/
   PolymeshCommonUtilitiesRelayerRawEvent: {
     _enum: {
@@ -1820,7 +1855,7 @@ export default {
     },
   },
   /**
-   * Lookup278: pallet_contracts::pallet::Event<T>
+   * Lookup277: pallet_contracts::pallet::Event<T>
    **/
   PalletContractsEvent: {
     _enum: {
@@ -1858,7 +1893,7 @@ export default {
     },
   },
   /**
-   * Lookup279: polymesh_contracts::RawEvent<primitive_types::H256, sp_core::crypto::AccountId32>
+   * Lookup278: polymesh_contracts::RawEvent<primitive_types::H256, sp_core::crypto::AccountId32>
    **/
   PolymeshContractsRawEvent: {
     _enum: {
@@ -1867,25 +1902,25 @@ export default {
     },
   },
   /**
-   * Lookup280: polymesh_contracts::Api
+   * Lookup279: polymesh_contracts::Api
    **/
   PolymeshContractsApi: {
     desc: '[u8;4]',
     major: 'u32',
   },
   /**
-   * Lookup281: polymesh_contracts::ChainVersion
+   * Lookup280: polymesh_contracts::ChainVersion
    **/
   PolymeshContractsChainVersion: {
     specVersion: 'u32',
     txVersion: 'u32',
   },
   /**
-   * Lookup282: polymesh_contracts::chain_extension::ExtrinsicId
+   * Lookup281: polymesh_contracts::chain_extension::ExtrinsicId
    **/
   PolymeshContractsChainExtensionExtrinsicId: '(u8,u8)',
   /**
-   * Lookup283: pallet_preimage::pallet::Event<T>
+   * Lookup282: pallet_preimage::pallet::Event<T>
    **/
   PalletPreimageEvent: {
     _enum: {
@@ -1910,17 +1945,17 @@ export default {
     },
   },
   /**
-   * Lookup284: polymesh_common_utilities::traits::nft::Event
+   * Lookup283: polymesh_common_utilities::traits::nft::Event
    **/
   PolymeshCommonUtilitiesNftEvent: {
     _enum: {
-      NftCollectionCreated: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesTicker,u64)',
+      NftCollectionCreated: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesAssetAssetId,u64)',
       NFTPortfolioUpdated:
         '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesNftNfTs,Option<PolymeshPrimitivesIdentityIdPortfolioId>,Option<PolymeshPrimitivesIdentityIdPortfolioId>,PolymeshPrimitivesPortfolioPortfolioUpdateReason)',
     },
   },
   /**
-   * Lookup286: pallet_test_utils::RawEvent<sp_core::crypto::AccountId32>
+   * Lookup285: pallet_test_utils::RawEvent<sp_core::crypto::AccountId32>
    **/
   PalletTestUtilsRawEvent: {
     _enum: {
@@ -1929,7 +1964,7 @@ export default {
     },
   },
   /**
-   * Lookup287: pallet_confidential_asset::pallet::Event<T>
+   * Lookup286: pallet_confidential_asset::pallet::Event<T>
    **/
   PalletConfidentialAssetEvent: {
     _enum: {
@@ -2043,30 +2078,30 @@ export default {
     },
   },
   /**
-   * Lookup288: pallet_confidential_asset::ConfidentialAccount
+   * Lookup287: pallet_confidential_asset::ConfidentialAccount
    **/
   PalletConfidentialAssetConfidentialAccount: 'ConfidentialAssetsElgamalCompressedElgamalPublicKey',
   /**
-   * Lookup289: confidential_assets::elgamal::CompressedElgamalPublicKey
+   * Lookup288: confidential_assets::elgamal::CompressedElgamalPublicKey
    **/
   ConfidentialAssetsElgamalCompressedElgamalPublicKey: '[u8;32]',
   /**
-   * Lookup291: pallet_confidential_asset::ConfidentialAuditors<T>
+   * Lookup290: pallet_confidential_asset::ConfidentialAuditors<T>
    **/
   PalletConfidentialAssetConfidentialAuditors: {
     auditors: 'BTreeSet<PalletConfidentialAssetAuditorAccount>',
     mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
   },
   /**
-   * Lookup293: pallet_confidential_asset::AuditorAccount
+   * Lookup292: pallet_confidential_asset::AuditorAccount
    **/
   PalletConfidentialAssetAuditorAccount: 'ConfidentialAssetsElgamalCompressedElgamalPublicKey',
   /**
-   * Lookup297: pallet_confidential_asset::TransactionId
+   * Lookup296: pallet_confidential_asset::TransactionId
    **/
   PalletConfidentialAssetTransactionId: 'Compact<u64>',
   /**
-   * Lookup299: pallet_confidential_asset::TransactionLegDetails<T>
+   * Lookup298: pallet_confidential_asset::TransactionLegDetails<T>
    **/
   PalletConfidentialAssetTransactionLegDetails: {
     auditors: 'BTreeMap<[u8;16], BTreeSet<PalletConfidentialAssetAuditorAccount>>',
@@ -2075,11 +2110,11 @@ export default {
     mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
   },
   /**
-   * Lookup307: pallet_confidential_asset::TransactionLegId
+   * Lookup306: pallet_confidential_asset::TransactionLegId
    **/
   PalletConfidentialAssetTransactionLegId: 'Compact<u32>',
   /**
-   * Lookup309: pallet_confidential_asset::AffirmParty<T>
+   * Lookup308: pallet_confidential_asset::AffirmParty<T>
    **/
   PalletConfidentialAssetAffirmParty: {
     _enum: {
@@ -2089,17 +2124,17 @@ export default {
     },
   },
   /**
-   * Lookup310: pallet_confidential_asset::ConfidentialTransfers<T>
+   * Lookup309: pallet_confidential_asset::ConfidentialTransfers<T>
    **/
   PalletConfidentialAssetConfidentialTransfers: {
     proofs: 'BTreeMap<[u8;16], Bytes>',
   },
   /**
-   * Lookup316: polymesh_host_functions::elgamal::HostCipherText
+   * Lookup315: polymesh_host_functions::elgamal::HostCipherText
    **/
   PolymeshHostFunctionsElgamalHostCipherText: '[u8;64]',
   /**
-   * Lookup318: frame_system::Phase
+   * Lookup317: frame_system::Phase
    **/
   FrameSystemPhase: {
     _enum: {
@@ -2109,14 +2144,14 @@ export default {
     },
   },
   /**
-   * Lookup321: frame_system::LastRuntimeUpgradeInfo
+   * Lookup320: frame_system::LastRuntimeUpgradeInfo
    **/
   FrameSystemLastRuntimeUpgradeInfo: {
     specVersion: 'Compact<u32>',
     specName: 'Text',
   },
   /**
-   * Lookup323: frame_system::pallet::Call<T>
+   * Lookup321: frame_system::pallet::Call<T>
    **/
   FrameSystemCall: {
     _enum: {
@@ -2151,7 +2186,7 @@ export default {
     },
   },
   /**
-   * Lookup327: frame_system::limits::BlockWeights
+   * Lookup325: frame_system::limits::BlockWeights
    **/
   FrameSystemLimitsBlockWeights: {
     baseBlock: 'SpWeightsWeightV2Weight',
@@ -2159,7 +2194,7 @@ export default {
     perClass: 'FrameSupportDispatchPerDispatchClassWeightsPerClass',
   },
   /**
-   * Lookup328: frame_support::dispatch::PerDispatchClass<frame_system::limits::WeightsPerClass>
+   * Lookup326: frame_support::dispatch::PerDispatchClass<frame_system::limits::WeightsPerClass>
    **/
   FrameSupportDispatchPerDispatchClassWeightsPerClass: {
     normal: 'FrameSystemLimitsWeightsPerClass',
@@ -2167,7 +2202,7 @@ export default {
     mandatory: 'FrameSystemLimitsWeightsPerClass',
   },
   /**
-   * Lookup329: frame_system::limits::WeightsPerClass
+   * Lookup327: frame_system::limits::WeightsPerClass
    **/
   FrameSystemLimitsWeightsPerClass: {
     baseExtrinsic: 'SpWeightsWeightV2Weight',
@@ -2176,13 +2211,13 @@ export default {
     reserved: 'Option<SpWeightsWeightV2Weight>',
   },
   /**
-   * Lookup331: frame_system::limits::BlockLength
+   * Lookup329: frame_system::limits::BlockLength
    **/
   FrameSystemLimitsBlockLength: {
     max: 'FrameSupportDispatchPerDispatchClassU32',
   },
   /**
-   * Lookup332: frame_support::dispatch::PerDispatchClass<T>
+   * Lookup330: frame_support::dispatch::PerDispatchClass<T>
    **/
   FrameSupportDispatchPerDispatchClassU32: {
     normal: 'u32',
@@ -2190,14 +2225,14 @@ export default {
     mandatory: 'u32',
   },
   /**
-   * Lookup333: sp_weights::RuntimeDbWeight
+   * Lookup331: sp_weights::RuntimeDbWeight
    **/
   SpWeightsRuntimeDbWeight: {
     read: 'u64',
     write: 'u64',
   },
   /**
-   * Lookup334: sp_version::RuntimeVersion
+   * Lookup332: sp_version::RuntimeVersion
    **/
   SpVersionRuntimeVersion: {
     specName: 'Text',
@@ -2210,7 +2245,7 @@ export default {
     stateVersion: 'u8',
   },
   /**
-   * Lookup339: frame_system::pallet::Error<T>
+   * Lookup337: frame_system::pallet::Error<T>
    **/
   FrameSystemError: {
     _enum: [
@@ -2223,11 +2258,11 @@ export default {
     ],
   },
   /**
-   * Lookup342: sp_consensus_babe::app::Public
+   * Lookup340: sp_consensus_babe::app::Public
    **/
   SpConsensusBabeAppPublic: 'SpCoreSr25519Public',
   /**
-   * Lookup345: sp_consensus_babe::digests::NextConfigDescriptor
+   * Lookup343: sp_consensus_babe::digests::NextConfigDescriptor
    **/
   SpConsensusBabeDigestsNextConfigDescriptor: {
     _enum: {
@@ -2239,13 +2274,13 @@ export default {
     },
   },
   /**
-   * Lookup347: sp_consensus_babe::AllowedSlots
+   * Lookup345: sp_consensus_babe::AllowedSlots
    **/
   SpConsensusBabeAllowedSlots: {
     _enum: ['PrimarySlots', 'PrimaryAndSecondaryPlainSlots', 'PrimaryAndSecondaryVRFSlots'],
   },
   /**
-   * Lookup351: sp_consensus_babe::digests::PreDigest
+   * Lookup349: sp_consensus_babe::digests::PreDigest
    **/
   SpConsensusBabeDigestsPreDigest: {
     _enum: {
@@ -2256,7 +2291,7 @@ export default {
     },
   },
   /**
-   * Lookup352: sp_consensus_babe::digests::PrimaryPreDigest
+   * Lookup350: sp_consensus_babe::digests::PrimaryPreDigest
    **/
   SpConsensusBabeDigestsPrimaryPreDigest: {
     authorityIndex: 'u32',
@@ -2265,14 +2300,14 @@ export default {
     vrfProof: '[u8;64]',
   },
   /**
-   * Lookup353: sp_consensus_babe::digests::SecondaryPlainPreDigest
+   * Lookup351: sp_consensus_babe::digests::SecondaryPlainPreDigest
    **/
   SpConsensusBabeDigestsSecondaryPlainPreDigest: {
     authorityIndex: 'u32',
     slot: 'u64',
   },
   /**
-   * Lookup354: sp_consensus_babe::digests::SecondaryVRFPreDigest
+   * Lookup352: sp_consensus_babe::digests::SecondaryVRFPreDigest
    **/
   SpConsensusBabeDigestsSecondaryVRFPreDigest: {
     authorityIndex: 'u32',
@@ -2281,14 +2316,14 @@ export default {
     vrfProof: '[u8;64]',
   },
   /**
-   * Lookup355: sp_consensus_babe::BabeEpochConfiguration
+   * Lookup353: sp_consensus_babe::BabeEpochConfiguration
    **/
   SpConsensusBabeBabeEpochConfiguration: {
     c: '(u64,u64)',
     allowedSlots: 'SpConsensusBabeAllowedSlots',
   },
   /**
-   * Lookup359: pallet_babe::pallet::Call<T>
+   * Lookup357: pallet_babe::pallet::Call<T>
    **/
   PalletBabeCall: {
     _enum: {
@@ -2306,7 +2341,7 @@ export default {
     },
   },
   /**
-   * Lookup360: sp_consensus_slots::EquivocationProof<sp_runtime::generic::header::Header<Number, sp_runtime::traits::BlakeTwo256>, sp_consensus_babe::app::Public>
+   * Lookup358: sp_consensus_slots::EquivocationProof<sp_runtime::generic::header::Header<Number, sp_runtime::traits::BlakeTwo256>, sp_consensus_babe::app::Public>
    **/
   SpConsensusSlotsEquivocationProof: {
     offender: 'SpConsensusBabeAppPublic',
@@ -2315,7 +2350,7 @@ export default {
     secondHeader: 'SpRuntimeHeader',
   },
   /**
-   * Lookup361: sp_runtime::generic::header::Header<Number, sp_runtime::traits::BlakeTwo256>
+   * Lookup359: sp_runtime::generic::header::Header<Number, sp_runtime::traits::BlakeTwo256>
    **/
   SpRuntimeHeader: {
     parentHash: 'H256',
@@ -2325,11 +2360,11 @@ export default {
     digest: 'SpRuntimeDigest',
   },
   /**
-   * Lookup362: sp_runtime::traits::BlakeTwo256
+   * Lookup360: sp_runtime::traits::BlakeTwo256
    **/
   SpRuntimeBlakeTwo256: 'Null',
   /**
-   * Lookup363: sp_session::MembershipProof
+   * Lookup361: sp_session::MembershipProof
    **/
   SpSessionMembershipProof: {
     session: 'u32',
@@ -2337,7 +2372,7 @@ export default {
     validatorCount: 'u32',
   },
   /**
-   * Lookup364: pallet_babe::pallet::Error<T>
+   * Lookup362: pallet_babe::pallet::Error<T>
    **/
   PalletBabeError: {
     _enum: [
@@ -2348,7 +2383,7 @@ export default {
     ],
   },
   /**
-   * Lookup365: pallet_timestamp::pallet::Call<T>
+   * Lookup363: pallet_timestamp::pallet::Call<T>
    **/
   PalletTimestampCall: {
     _enum: {
@@ -2358,7 +2393,7 @@ export default {
     },
   },
   /**
-   * Lookup367: pallet_indices::pallet::Call<T>
+   * Lookup365: pallet_indices::pallet::Call<T>
    **/
   PalletIndicesCall: {
     _enum: {
@@ -2389,13 +2424,13 @@ export default {
     },
   },
   /**
-   * Lookup369: pallet_indices::pallet::Error<T>
+   * Lookup367: pallet_indices::pallet::Error<T>
    **/
   PalletIndicesError: {
     _enum: ['NotAssigned', 'NotOwner', 'InUse', 'NotTransfer', 'Permanent'],
   },
   /**
-   * Lookup371: pallet_balances::BalanceLock<Balance>
+   * Lookup369: pallet_balances::BalanceLock<Balance>
    **/
   PalletBalancesBalanceLock: {
     id: '[u8;8]',
@@ -2403,13 +2438,13 @@ export default {
     reasons: 'PolymeshCommonUtilitiesBalancesReasons',
   },
   /**
-   * Lookup372: polymesh_common_utilities::traits::balances::Reasons
+   * Lookup370: polymesh_common_utilities::traits::balances::Reasons
    **/
   PolymeshCommonUtilitiesBalancesReasons: {
     _enum: ['Fee', 'Misc', 'All'],
   },
   /**
-   * Lookup373: pallet_balances::Call<T>
+   * Lookup371: pallet_balances::Call<T>
    **/
   PalletBalancesCall: {
     _enum: {
@@ -2441,7 +2476,7 @@ export default {
     },
   },
   /**
-   * Lookup375: pallet_balances::Error<T>
+   * Lookup373: pallet_balances::Error<T>
    **/
   PalletBalancesError: {
     _enum: [
@@ -2453,13 +2488,13 @@ export default {
     ],
   },
   /**
-   * Lookup377: pallet_transaction_payment::Releases
+   * Lookup375: pallet_transaction_payment::Releases
    **/
   PalletTransactionPaymentReleases: {
     _enum: ['V1Ancient', 'V2'],
   },
   /**
-   * Lookup379: sp_weights::WeightToFeeCoefficient<Balance>
+   * Lookup377: sp_weights::WeightToFeeCoefficient<Balance>
    **/
   SpWeightsWeightToFeeCoefficient: {
     coeffInteger: 'u128',
@@ -2468,37 +2503,46 @@ export default {
     degree: 'u8',
   },
   /**
-   * Lookup381: polymesh_primitives::identity::DidRecord<sp_core::crypto::AccountId32>
+   * Lookup379: polymesh_primitives::identity::DidRecord<sp_core::crypto::AccountId32>
    **/
   PolymeshPrimitivesIdentityDidRecord: {
     primaryKey: 'Option<AccountId32>',
   },
   /**
-   * Lookup383: pallet_identity::types::Claim1stKey
+   * Lookup381: pallet_identity::types::Claim1stKey
    **/
   PalletIdentityClaim1stKey: {
     target: 'PolymeshPrimitivesIdentityId',
     claimType: 'PolymeshPrimitivesIdentityClaimClaimType',
   },
   /**
-   * Lookup384: pallet_identity::types::Claim2ndKey
+   * Lookup382: pallet_identity::types::Claim2ndKey
    **/
   PalletIdentityClaim2ndKey: {
     issuer: 'PolymeshPrimitivesIdentityId',
     scope: 'Option<PolymeshPrimitivesIdentityClaimScope>',
   },
   /**
-   * Lookup385: polymesh_primitives::secondary_key::KeyRecord<sp_core::crypto::AccountId32>
+   * Lookup383: polymesh_primitives::secondary_key::KeyRecord<sp_core::crypto::AccountId32>
    **/
   PolymeshPrimitivesSecondaryKeyKeyRecord: {
     _enum: {
       PrimaryKey: 'PolymeshPrimitivesIdentityId',
-      SecondaryKey: '(PolymeshPrimitivesIdentityId,PolymeshPrimitivesSecondaryKeyPermissions)',
+      SecondaryKey: 'PolymeshPrimitivesIdentityId',
       MultiSigSignerKey: 'AccountId32',
     },
   },
   /**
-   * Lookup388: polymesh_primitives::authorization::Authorization<sp_core::crypto::AccountId32, Moment>
+   * Lookup386: polymesh_primitives::secondary_key::Signatory<sp_core::crypto::AccountId32>
+   **/
+  PolymeshPrimitivesSecondaryKeySignatory: {
+    _enum: {
+      Identity: 'PolymeshPrimitivesIdentityId',
+      Account: 'AccountId32',
+    },
+  },
+  /**
+   * Lookup387: polymesh_primitives::authorization::Authorization<sp_core::crypto::AccountId32, Moment>
    **/
   PolymeshPrimitivesAuthorization: {
     authorizationData: 'PolymeshPrimitivesAuthorizationAuthorizationData',
@@ -2508,7 +2552,7 @@ export default {
     count: 'u32',
   },
   /**
-   * Lookup392: pallet_identity::Call<T>
+   * Lookup391: pallet_identity::Call<T>
    **/
   PalletIdentityCall: {
     _enum: {
@@ -2600,26 +2644,26 @@ export default {
     },
   },
   /**
-   * Lookup394: polymesh_common_utilities::traits::identity::SecondaryKeyWithAuth<sp_core::crypto::AccountId32>
+   * Lookup393: polymesh_common_utilities::traits::identity::SecondaryKeyWithAuth<sp_core::crypto::AccountId32>
    **/
   PolymeshCommonUtilitiesIdentitySecondaryKeyWithAuth: {
     secondaryKey: 'PolymeshPrimitivesSecondaryKey',
     authSignature: 'H512',
   },
   /**
-   * Lookup397: polymesh_common_utilities::traits::identity::CreateChildIdentityWithAuth<sp_core::crypto::AccountId32>
+   * Lookup396: polymesh_common_utilities::traits::identity::CreateChildIdentityWithAuth<sp_core::crypto::AccountId32>
    **/
   PolymeshCommonUtilitiesIdentityCreateChildIdentityWithAuth: {
     key: 'AccountId32',
     authSignature: 'H512',
   },
   /**
-   * Lookup398: pallet_identity::Error<T>
+   * Lookup397: pallet_identity::Error<T>
    **/
   PalletIdentityError: {
     _enum: [
       'AlreadyLinked',
-      'MissingCurrentIdentity',
+      'MissingIdentity',
       'Unauthorized',
       'InvalidAccountKey',
       'UnAuthorizedCddProvider',
@@ -2640,7 +2684,6 @@ export default {
       'FailedToChargeFee',
       'NotASigner',
       'CannotDecodeSignerAccountId',
-      'MultiSigHasBalance',
       'AccountKeyIsBeingUsed',
       'CustomScopeTooLong',
       'CustomClaimTypeAlreadyExists',
@@ -2655,7 +2698,7 @@ export default {
     ],
   },
   /**
-   * Lookup400: polymesh_common_utilities::traits::group::InactiveMember<Moment>
+   * Lookup399: polymesh_common_utilities::traits::group::InactiveMember<Moment>
    **/
   PolymeshCommonUtilitiesGroupInactiveMember: {
     id: 'PolymeshPrimitivesIdentityId',
@@ -2663,7 +2706,7 @@ export default {
     expiry: 'Option<u64>',
   },
   /**
-   * Lookup401: pallet_group::Call<T, I>
+   * Lookup400: pallet_group::Call<T, I>
    **/
   PalletGroupCall: {
     _enum: {
@@ -2692,7 +2735,7 @@ export default {
     },
   },
   /**
-   * Lookup402: pallet_group::Error<T, I>
+   * Lookup401: pallet_group::Error<T, I>
    **/
   PalletGroupError: {
     _enum: [
@@ -2700,13 +2743,12 @@ export default {
       'DuplicateMember',
       'NoSuchMember',
       'LastMemberCannotQuit',
-      'MissingCurrentIdentity',
       'ActiveMembersLimitExceeded',
       'ActiveMembersLimitOverflow',
     ],
   },
   /**
-   * Lookup404: pallet_committee::Call<T, I>
+   * Lookup403: pallet_committee::Call<T, I>
    **/
   PalletCommitteeCall: {
     _enum: {
@@ -2732,97 +2774,71 @@ export default {
     },
   },
   /**
-   * Lookup410: pallet_multisig::Call<T>
+   * Lookup409: pallet_multisig::pallet::Call<T>
    **/
   PalletMultisigCall: {
     _enum: {
       create_multisig: {
-        signers: 'Vec<PolymeshPrimitivesSecondaryKeySignatory>',
+        signers: 'Vec<AccountId32>',
         sigsRequired: 'u64',
+        permissions: 'Option<PolymeshPrimitivesSecondaryKeyPermissions>',
       },
-      create_or_approve_proposal_as_identity: {
+      create_proposal: {
         multisig: 'AccountId32',
         proposal: 'Call',
         expiry: 'Option<u64>',
-        autoClose: 'bool',
       },
-      create_or_approve_proposal_as_key: {
+      approve: {
         multisig: 'AccountId32',
-        proposal: 'Call',
-        expiry: 'Option<u64>',
-        autoClose: 'bool',
+        proposalId: 'u64',
+        maxWeight: 'Option<SpWeightsWeightV2Weight>',
       },
-      create_proposal_as_identity: {
-        multisig: 'AccountId32',
-        proposal: 'Call',
-        expiry: 'Option<u64>',
-        autoClose: 'bool',
-      },
-      create_proposal_as_key: {
-        multisig: 'AccountId32',
-        proposal: 'Call',
-        expiry: 'Option<u64>',
-        autoClose: 'bool',
-      },
-      approve_as_identity: {
+      reject: {
         multisig: 'AccountId32',
         proposalId: 'u64',
       },
-      approve_as_key: {
-        multisig: 'AccountId32',
-        proposalId: 'u64',
-      },
-      reject_as_identity: {
-        multisig: 'AccountId32',
-        proposalId: 'u64',
-      },
-      reject_as_key: {
-        multisig: 'AccountId32',
-        proposalId: 'u64',
-      },
-      accept_multisig_signer_as_identity: {
+      accept_multisig_signer: {
         authId: 'u64',
       },
-      accept_multisig_signer_as_key: {
-        authId: 'u64',
+      add_multisig_signers: {
+        signers: 'Vec<AccountId32>',
       },
-      add_multisig_signer: {
-        signer: 'PolymeshPrimitivesSecondaryKeySignatory',
+      remove_multisig_signers: {
+        signers: 'Vec<AccountId32>',
       },
-      remove_multisig_signer: {
-        signer: 'PolymeshPrimitivesSecondaryKeySignatory',
-      },
-      add_multisig_signers_via_creator: {
+      add_multisig_signers_via_admin: {
         multisig: 'AccountId32',
-        signers: 'Vec<PolymeshPrimitivesSecondaryKeySignatory>',
+        signers: 'Vec<AccountId32>',
       },
-      remove_multisig_signers_via_creator: {
+      remove_multisig_signers_via_admin: {
         multisig: 'AccountId32',
-        signers: 'Vec<PolymeshPrimitivesSecondaryKeySignatory>',
+        signers: 'Vec<AccountId32>',
       },
       change_sigs_required: {
         sigsRequired: 'u64',
       },
-      make_multisig_secondary: {
+      change_sigs_required_via_admin: {
         multisig: 'AccountId32',
-      },
-      make_multisig_primary: {
-        multisig: 'AccountId32',
-        optionalCddAuthId: 'Option<u64>',
-      },
-      execute_scheduled_proposal: {
-        multisig: 'AccountId32',
-        proposalId: 'u64',
-        multisigDid: 'PolymeshPrimitivesIdentityId',
-        proposalWeight: 'SpWeightsWeightV2Weight',
-      },
-      change_sigs_required_via_creator: {
-        multisigAccount: 'AccountId32',
         signaturesRequired: 'u64',
       },
-      remove_creator_controls: {
-        multisigAccount: 'AccountId32',
+      add_admin: {
+        adminDid: 'PolymeshPrimitivesIdentityId',
       },
+      remove_admin_via_admin: {
+        multisig: 'AccountId32',
+      },
+      remove_payer: 'Null',
+      remove_payer_via_payer: {
+        multisig: 'AccountId32',
+      },
+      approve_join_identity: {
+        multisig: 'AccountId32',
+        authId: 'u64',
+      },
+      join_identity: {
+        authId: 'u64',
+      },
+      remove_admin: 'Null',
     },
   },
   /**
@@ -3006,7 +3022,7 @@ export default {
    **/
   PalletAssetCall: {
     _enum: {
-      register_ticker: {
+      register_unique_ticker: {
         ticker: 'PolymeshPrimitivesTicker',
       },
       accept_ticker_transfer: {
@@ -3016,53 +3032,53 @@ export default {
         authId: 'u64',
       },
       create_asset: {
-        name: 'Bytes',
-        ticker: 'PolymeshPrimitivesTicker',
+        assetName: 'Bytes',
         divisible: 'bool',
         assetType: 'PolymeshPrimitivesAssetAssetType',
-        identifiers: 'Vec<PolymeshPrimitivesAssetIdentifier>',
-        fundingRound: 'Option<Bytes>',
+        assetIdentifiers: 'Vec<PolymeshPrimitivesAssetIdentifier>',
+        fundingRoundName: 'Option<Bytes>',
       },
       freeze: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       unfreeze: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       rename_asset: {
-        ticker: 'PolymeshPrimitivesTicker',
-        name: 'Bytes',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
+        assetName: 'Bytes',
       },
       issue: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         amount: 'u128',
         portfolioKind: 'PolymeshPrimitivesIdentityIdPortfolioKind',
       },
       redeem: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         value: 'u128',
+        portfolioKind: 'PolymeshPrimitivesIdentityIdPortfolioKind',
       },
       make_divisible: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       add_documents: {
         docs: 'Vec<PolymeshPrimitivesDocument>',
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       remove_documents: {
-        ids: 'Vec<u32>',
-        ticker: 'PolymeshPrimitivesTicker',
+        docsId: 'Vec<u32>',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       set_funding_round: {
-        ticker: 'PolymeshPrimitivesTicker',
-        name: 'Bytes',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
+        foundingRoundName: 'Bytes',
       },
       update_identifiers: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         assetIdentifiers: 'Vec<PolymeshPrimitivesAssetIdentifier>',
       },
       controller_transfer: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         value: 'u128',
         fromPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
       },
@@ -3070,33 +3086,32 @@ export default {
         ty: 'Bytes',
       },
       create_asset_with_custom_type: {
-        name: 'Bytes',
-        ticker: 'PolymeshPrimitivesTicker',
+        assetName: 'Bytes',
         divisible: 'bool',
         customAssetType: 'Bytes',
-        identifiers: 'Vec<PolymeshPrimitivesAssetIdentifier>',
-        fundingRound: 'Option<Bytes>',
+        assetIdentifiers: 'Vec<PolymeshPrimitivesAssetIdentifier>',
+        fundingRoundName: 'Option<Bytes>',
       },
       set_asset_metadata: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         key: 'PolymeshPrimitivesAssetMetadataAssetMetadataKey',
         value: 'Bytes',
         detail: 'Option<PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail>',
       },
       set_asset_metadata_details: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         key: 'PolymeshPrimitivesAssetMetadataAssetMetadataKey',
         detail: 'PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail',
       },
       register_and_set_local_asset_metadata: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         name: 'Bytes',
         spec: 'PolymeshPrimitivesAssetMetadataAssetMetadataSpec',
         value: 'Bytes',
         detail: 'Option<PolymeshPrimitivesAssetMetadataAssetMetadataValueDetail>',
       },
       register_asset_metadata_local_type: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         name: 'Bytes',
         spec: 'PolymeshPrimitivesAssetMetadataAssetMetadataSpec',
       },
@@ -3104,42 +3119,45 @@ export default {
         name: 'Bytes',
         spec: 'PolymeshPrimitivesAssetMetadataAssetMetadataSpec',
       },
-      redeem_from_portfolio: {
-        ticker: 'PolymeshPrimitivesTicker',
-        value: 'u128',
-        portfolio: 'PolymeshPrimitivesIdentityIdPortfolioKind',
-      },
       update_asset_type: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         assetType: 'PolymeshPrimitivesAssetAssetType',
       },
       remove_local_metadata_key: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         localKey: 'u64',
       },
       remove_metadata_value: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         metadataKey: 'PolymeshPrimitivesAssetMetadataAssetMetadataKey',
       },
-      exempt_ticker_affirmation: {
-        ticker: 'PolymeshPrimitivesTicker',
+      exempt_asset_affirmation: {
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
-      remove_ticker_affirmation_exemption: {
-        ticker: 'PolymeshPrimitivesTicker',
+      remove_asset_affirmation_exemption: {
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
-      pre_approve_ticker: {
-        ticker: 'PolymeshPrimitivesTicker',
+      pre_approve_asset: {
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
-      remove_ticker_pre_approval: {
-        ticker: 'PolymeshPrimitivesTicker',
+      remove_asset_pre_approval: {
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       add_mandatory_mediators: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
       },
       remove_mandatory_mediators: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
+      },
+      link_ticker_to_asset_id: {
+        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
+      },
+      unlink_ticker_from_asset_id: {
+        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
     },
   },
@@ -3151,7 +3169,7 @@ export default {
       distribute: {
         caId: 'PalletCorporateActionsCaId',
         portfolio: 'Option<u64>',
-        currency: 'PolymeshPrimitivesTicker',
+        currency: 'PolymeshPrimitivesAssetAssetId',
         perShare: 'u128',
         amount: 'u128',
         paymentAt: 'u64',
@@ -3178,17 +3196,17 @@ export default {
   PalletAssetCheckpointCall: {
     _enum: {
       create_checkpoint: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       set_schedules_max_complexity: {
         maxComplexity: 'u64',
       },
       create_schedule: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         schedule: 'PolymeshCommonUtilitiesCheckpointScheduleCheckpoints',
       },
       remove_schedule: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         id: 'u64',
       },
     },
@@ -3199,37 +3217,37 @@ export default {
   PalletComplianceManagerCall: {
     _enum: {
       add_compliance_requirement: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         senderConditions: 'Vec<PolymeshPrimitivesCondition>',
         receiverConditions: 'Vec<PolymeshPrimitivesCondition>',
       },
       remove_compliance_requirement: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         id: 'u32',
       },
       replace_asset_compliance: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         assetCompliance: 'Vec<PolymeshPrimitivesComplianceManagerComplianceRequirement>',
       },
       reset_asset_compliance: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       pause_asset_compliance: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       resume_asset_compliance: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       add_default_trusted_claim_issuer: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         issuer: 'PolymeshPrimitivesConditionTrustedIssuer',
       },
       remove_default_trusted_claim_issuer: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         issuer: 'PolymeshPrimitivesIdentityId',
       },
       change_compliance_requirement: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         newReq: 'PolymeshPrimitivesComplianceManagerComplianceRequirement',
       },
     },
@@ -3243,20 +3261,20 @@ export default {
         length: 'u32',
       },
       set_default_targets: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         targets: 'PalletCorporateActionsTargetIdentities',
       },
       set_default_withholding_tax: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         tax: 'Permill',
       },
       set_did_withholding_tax: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         taxedDid: 'PolymeshPrimitivesIdentityId',
         tax: 'Option<Permill>',
       },
       initiate_corporate_action: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         kind: 'PalletCorporateActionsCaKind',
         declDate: 'u64',
         recordDate: 'Option<PalletCorporateActionsRecordDateSpec>',
@@ -3279,7 +3297,7 @@ export default {
       initiate_corporate_action_and_distribute: {
         caArgs: 'PalletCorporateActionsInitiateCorporateActionArgs',
         portfolio: 'Option<u64>',
-        currency: 'PolymeshPrimitivesTicker',
+        currency: 'PolymeshPrimitivesAssetAssetId',
         perShare: 'u128',
         amount: 'u128',
         paymentAt: 'u64',
@@ -3301,7 +3319,7 @@ export default {
    * Lookup447: pallet_corporate_actions::InitiateCorporateActionArgs
    **/
   PalletCorporateActionsInitiateCorporateActionArgs: {
-    ticker: 'PolymeshPrimitivesTicker',
+    assetId: 'PolymeshPrimitivesAssetAssetId',
     kind: 'PalletCorporateActionsCaKind',
     declDate: 'u64',
     recordDate: 'Option<PalletCorporateActionsRecordDateSpec>',
@@ -3436,11 +3454,11 @@ export default {
         funds: 'Vec<PolymeshPrimitivesPortfolioFund>',
       },
       pre_approve_portfolio: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         portfolioId: 'PolymeshPrimitivesIdentityIdPortfolioId',
       },
       remove_portfolio_pre_approval: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         portfolioId: 'PolymeshPrimitivesIdentityIdPortfolioId',
       },
       allow_identity_to_create_portfolios: {
@@ -3560,18 +3578,18 @@ export default {
       affirm_with_receipts: {
         id: 'u64',
         receiptDetails: 'Vec<PolymeshPrimitivesSettlementReceiptDetails>',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
       },
       set_venue_filtering: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         enabled: 'bool',
       },
       allow_venues: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         venues: 'Vec<u64>',
       },
       disallow_venues: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         venues: 'Vec<u64>',
       },
       update_venue_signers: {
@@ -3588,7 +3606,7 @@ export default {
         weightLimit: 'Option<SpWeightsWeightV2Weight>',
       },
       add_instruction: {
-        venueId: 'u64',
+        venueId: 'Option<u64>',
         settlementType: 'PolymeshPrimitivesSettlementSettlementType',
         tradeDate: 'Option<u64>',
         valueDate: 'Option<u64>',
@@ -3596,21 +3614,21 @@ export default {
         instructionMemo: 'Option<PolymeshPrimitivesMemo>',
       },
       add_and_affirm_instruction: {
-        venueId: 'u64',
+        venueId: 'Option<u64>',
         settlementType: 'PolymeshPrimitivesSettlementSettlementType',
         tradeDate: 'Option<u64>',
         valueDate: 'Option<u64>',
         legs: 'Vec<PolymeshPrimitivesSettlementLeg>',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
         instructionMemo: 'Option<PolymeshPrimitivesMemo>',
       },
       affirm_instruction: {
         id: 'u64',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
       },
       withdraw_affirmation: {
         id: 'u64',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
       },
       reject_instruction: {
         id: 'u64',
@@ -3623,12 +3641,12 @@ export default {
       affirm_with_receipts_with_count: {
         id: 'u64',
         receiptDetails: 'Vec<PolymeshPrimitivesSettlementReceiptDetails>',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
         numberOfAssets: 'Option<PolymeshPrimitivesSettlementAffirmationCount>',
       },
       affirm_instruction_with_count: {
         id: 'u64',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
         numberOfAssets: 'Option<PolymeshPrimitivesSettlementAffirmationCount>',
       },
       reject_instruction_with_count: {
@@ -3638,11 +3656,11 @@ export default {
       },
       withdraw_affirmation_with_count: {
         id: 'u64',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
         numberOfAssets: 'Option<PolymeshPrimitivesSettlementAffirmationCount>',
       },
       add_instruction_with_mediators: {
-        venueId: 'u64',
+        venueId: 'Option<u64>',
         settlementType: 'PolymeshPrimitivesSettlementSettlementType',
         tradeDate: 'Option<u64>',
         valueDate: 'Option<u64>',
@@ -3651,12 +3669,12 @@ export default {
         mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
       },
       add_and_affirm_with_mediators: {
-        venueId: 'u64',
+        venueId: 'Option<u64>',
         settlementType: 'PolymeshPrimitivesSettlementSettlementType',
         tradeDate: 'Option<u64>',
         valueDate: 'Option<u64>',
         legs: 'Vec<PolymeshPrimitivesSettlementLeg>',
-        portfolios: 'Vec<PolymeshPrimitivesIdentityIdPortfolioId>',
+        portfolios: 'BTreeSet<PolymeshPrimitivesIdentityIdPortfolioId>',
         instructionMemo: 'Option<PolymeshPrimitivesMemo>',
         mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
       },
@@ -3699,7 +3717,7 @@ export default {
    **/
   SpCoreEcdsaSignature: '[u8;65]',
   /**
-   * Lookup468: polymesh_primitives::settlement::AffirmationCount
+   * Lookup469: polymesh_primitives::settlement::AffirmationCount
    **/
   PolymeshPrimitivesSettlementAffirmationCount: {
     senderAssetCount: 'PolymeshPrimitivesSettlementAssetCount',
@@ -3707,7 +3725,7 @@ export default {
     offchainCount: 'u32',
   },
   /**
-   * Lookup469: polymesh_primitives::settlement::AssetCount
+   * Lookup470: polymesh_primitives::settlement::AssetCount
    **/
   PolymeshPrimitivesSettlementAssetCount: {
     fungible: 'u32',
@@ -3715,21 +3733,21 @@ export default {
     offChain: 'u32',
   },
   /**
-   * Lookup472: pallet_statistics::Call<T>
+   * Lookup473: pallet_statistics::Call<T>
    **/
   PalletStatisticsCall: {
     _enum: {
       set_active_asset_stats: {
-        asset: 'PolymeshPrimitivesStatisticsAssetScope',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         statTypes: 'BTreeSet<PolymeshPrimitivesStatisticsStatType>',
       },
       batch_update_asset_stats: {
-        asset: 'PolymeshPrimitivesStatisticsAssetScope',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         statType: 'PolymeshPrimitivesStatisticsStatType',
         values: 'BTreeSet<PolymeshPrimitivesStatisticsStatUpdate>',
       },
       set_asset_transfer_compliance: {
-        asset: 'PolymeshPrimitivesStatisticsAssetScope',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         transferConditions: 'BTreeSet<PolymeshPrimitivesTransferComplianceTransferCondition>',
       },
       set_entities_exempt: {
@@ -3740,15 +3758,15 @@ export default {
     },
   },
   /**
-   * Lookup476: pallet_sto::Call<T>
+   * Lookup477: pallet_sto::Call<T>
    **/
   PalletStoCall: {
     _enum: {
       create_fundraiser: {
         offeringPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
-        offeringAsset: 'PolymeshPrimitivesTicker',
+        offeringAsset: 'PolymeshPrimitivesAssetAssetId',
         raisingPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
-        raisingAsset: 'PolymeshPrimitivesTicker',
+        raisingAsset: 'PolymeshPrimitivesAssetAssetId',
         tiers: 'Vec<PalletStoPriceTier>',
         venueId: 'u64',
         start: 'Option<u64>',
@@ -3759,41 +3777,41 @@ export default {
       invest: {
         investmentPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
         fundingPortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
-        offeringAsset: 'PolymeshPrimitivesTicker',
+        offeringAsset: 'PolymeshPrimitivesAssetAssetId',
         id: 'u64',
         purchaseAmount: 'u128',
         maxPrice: 'Option<u128>',
         receipt: 'Option<PolymeshPrimitivesSettlementReceiptDetails>',
       },
       freeze_fundraiser: {
-        offeringAsset: 'PolymeshPrimitivesTicker',
+        offeringAsset: 'PolymeshPrimitivesAssetAssetId',
         id: 'u64',
       },
       unfreeze_fundraiser: {
-        offeringAsset: 'PolymeshPrimitivesTicker',
+        offeringAsset: 'PolymeshPrimitivesAssetAssetId',
         id: 'u64',
       },
       modify_fundraiser_window: {
-        offeringAsset: 'PolymeshPrimitivesTicker',
+        offeringAsset: 'PolymeshPrimitivesAssetAssetId',
         id: 'u64',
         start: 'u64',
         end: 'Option<u64>',
       },
       stop: {
-        offeringAsset: 'PolymeshPrimitivesTicker',
+        offeringAsset: 'PolymeshPrimitivesAssetAssetId',
         id: 'u64',
       },
     },
   },
   /**
-   * Lookup478: pallet_sto::PriceTier
+   * Lookup479: pallet_sto::PriceTier
    **/
   PalletStoPriceTier: {
     total: 'u128',
     price: 'u128',
   },
   /**
-   * Lookup480: pallet_treasury::Call<T>
+   * Lookup481: pallet_treasury::Call<T>
    **/
   PalletTreasuryCall: {
     _enum: {
@@ -3806,14 +3824,14 @@ export default {
     },
   },
   /**
-   * Lookup482: polymesh_primitives::Beneficiary<Balance>
+   * Lookup483: polymesh_primitives::Beneficiary<Balance>
    **/
   PolymeshPrimitivesBeneficiary: {
     id: 'PolymeshPrimitivesIdentityId',
     amount: 'u128',
   },
   /**
-   * Lookup483: pallet_utility::pallet::Call<T>
+   * Lookup484: pallet_utility::pallet::Call<T>
    **/
   PalletUtilityCall: {
     _enum: {
@@ -3839,15 +3857,9 @@ export default {
         call: 'Call',
         weight: 'SpWeightsWeightV2Weight',
       },
-      batch_old: {
-        calls: 'Vec<Call>',
-      },
-      batch_atomic: {
-        calls: 'Vec<Call>',
-      },
-      batch_optimistic: {
-        calls: 'Vec<Call>',
-      },
+      __Unused6: 'Null',
+      __Unused7: 'Null',
+      __Unused8: 'Null',
       as_derivative: {
         index: 'u16',
         call: 'Call',
@@ -3855,14 +3867,14 @@ export default {
     },
   },
   /**
-   * Lookup485: pallet_utility::UniqueCall<polymesh_private_runtime_develop::runtime::RuntimeCall>
+   * Lookup486: pallet_utility::UniqueCall<polymesh_private_runtime_develop::runtime::RuntimeCall>
    **/
   PalletUtilityUniqueCall: {
     nonce: 'u64',
     call: 'Call',
   },
   /**
-   * Lookup486: polymesh_private_runtime_develop::runtime::OriginCaller
+   * Lookup487: polymesh_private_runtime_develop::runtime::OriginCaller
    **/
   PolymeshPrivateRuntimeDevelopRuntimeOriginCaller: {
     _enum: {
@@ -3883,7 +3895,7 @@ export default {
     },
   },
   /**
-   * Lookup487: frame_support::dispatch::RawOrigin<sp_core::crypto::AccountId32>
+   * Lookup488: frame_support::dispatch::RawOrigin<sp_core::crypto::AccountId32>
    **/
   FrameSupportDispatchRawOrigin: {
     _enum: {
@@ -3893,54 +3905,54 @@ export default {
     },
   },
   /**
-   * Lookup488: pallet_committee::RawOrigin<sp_core::crypto::AccountId32, pallet_committee::Instance1>
+   * Lookup489: pallet_committee::RawOrigin<sp_core::crypto::AccountId32, pallet_committee::Instance1>
    **/
   PalletCommitteeRawOriginInstance1: {
     _enum: ['Endorsed'],
   },
   /**
-   * Lookup489: pallet_committee::RawOrigin<sp_core::crypto::AccountId32, pallet_committee::Instance3>
+   * Lookup490: pallet_committee::RawOrigin<sp_core::crypto::AccountId32, pallet_committee::Instance3>
    **/
   PalletCommitteeRawOriginInstance3: {
     _enum: ['Endorsed'],
   },
   /**
-   * Lookup490: pallet_committee::RawOrigin<sp_core::crypto::AccountId32, pallet_committee::Instance4>
+   * Lookup491: pallet_committee::RawOrigin<sp_core::crypto::AccountId32, pallet_committee::Instance4>
    **/
   PalletCommitteeRawOriginInstance4: {
     _enum: ['Endorsed'],
   },
   /**
-   * Lookup491: sp_core::Void
+   * Lookup492: sp_core::Void
    **/
   SpCoreVoid: 'Null',
   /**
-   * Lookup492: pallet_base::Call<T>
+   * Lookup493: pallet_base::Call<T>
    **/
   PalletBaseCall: 'Null',
   /**
-   * Lookup493: pallet_external_agents::Call<T>
+   * Lookup494: pallet_external_agents::Call<T>
    **/
   PalletExternalAgentsCall: {
     _enum: {
       create_group: {
-        ticker: 'PolymeshPrimitivesTicker',
-        perms: 'PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
+        perms: 'PolymeshPrimitivesSecondaryKeyExtrinsicPermissions',
       },
       set_group_permissions: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         id: 'u32',
-        perms: 'PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions',
+        perms: 'PolymeshPrimitivesSecondaryKeyExtrinsicPermissions',
       },
       remove_agent: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         agent: 'PolymeshPrimitivesIdentityId',
       },
       abdicate: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
       },
       change_group: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         agent: 'PolymeshPrimitivesIdentityId',
         group: 'PolymeshPrimitivesAgentAgentGroup',
       },
@@ -3948,20 +3960,20 @@ export default {
         authId: 'u64',
       },
       create_group_and_add_auth: {
-        ticker: 'PolymeshPrimitivesTicker',
-        perms: 'PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
+        perms: 'PolymeshPrimitivesSecondaryKeyExtrinsicPermissions',
         target: 'PolymeshPrimitivesIdentityId',
         expiry: 'Option<u64>',
       },
       create_and_change_custom_group: {
-        ticker: 'PolymeshPrimitivesTicker',
-        perms: 'PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
+        perms: 'PolymeshPrimitivesSecondaryKeyExtrinsicPermissions',
         agent: 'PolymeshPrimitivesIdentityId',
       },
     },
   },
   /**
-   * Lookup494: pallet_relayer::Call<T>
+   * Lookup495: pallet_relayer::Call<T>
    **/
   PalletRelayerCall: {
     _enum: {
@@ -3991,7 +4003,7 @@ export default {
     },
   },
   /**
-   * Lookup495: pallet_contracts::pallet::Call<T>
+   * Lookup496: pallet_contracts::pallet::Call<T>
    **/
   PalletContractsCall: {
     _enum: {
@@ -4056,13 +4068,13 @@ export default {
     },
   },
   /**
-   * Lookup499: pallet_contracts::wasm::Determinism
+   * Lookup500: pallet_contracts::wasm::Determinism
    **/
   PalletContractsWasmDeterminism: {
     _enum: ['Deterministic', 'AllowIndeterminism'],
   },
   /**
-   * Lookup500: polymesh_contracts::Call<T>
+   * Lookup501: polymesh_contracts::Call<T>
    **/
   PolymeshContractsCall: {
     _enum: {
@@ -4110,14 +4122,14 @@ export default {
     },
   },
   /**
-   * Lookup503: polymesh_contracts::NextUpgrade<T>
+   * Lookup504: polymesh_contracts::NextUpgrade<T>
    **/
   PolymeshContractsNextUpgrade: {
     chainVersion: 'PolymeshContractsChainVersion',
     apiHash: 'PolymeshContractsApiCodeHash',
   },
   /**
-   * Lookup504: polymesh_contracts::ApiCodeHash<T>
+   * Lookup505: polymesh_contracts::ApiCodeHash<T>
    **/
   PolymeshContractsApiCodeHash: {
     _alias: {
@@ -4126,7 +4138,7 @@ export default {
     hash_: 'H256',
   },
   /**
-   * Lookup505: pallet_preimage::pallet::Call<T>
+   * Lookup506: pallet_preimage::pallet::Call<T>
    **/
   PalletPreimageCall: {
     _enum: {
@@ -4154,27 +4166,27 @@ export default {
     },
   },
   /**
-   * Lookup506: pallet_nft::Call<T>
+   * Lookup507: pallet_nft::Call<T>
    **/
   PalletNftCall: {
     _enum: {
       create_nft_collection: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'Option<PolymeshPrimitivesAssetAssetId>',
         nftType: 'Option<PolymeshPrimitivesAssetNonFungibleType>',
         collectionKeys: 'PolymeshPrimitivesNftNftCollectionKeys',
       },
       issue_nft: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         nftMetadataAttributes: 'Vec<PolymeshPrimitivesNftNftMetadataAttribute>',
         portfolioKind: 'PolymeshPrimitivesIdentityIdPortfolioKind',
       },
       redeem_nft: {
-        ticker: 'PolymeshPrimitivesTicker',
+        assetId: 'PolymeshPrimitivesAssetAssetId',
         nftId: 'u64',
         portfolioKind: 'PolymeshPrimitivesIdentityIdPortfolioKind',
+        numberOfKeys: 'Option<u8>',
       },
       controller_transfer: {
-        ticker: 'PolymeshPrimitivesTicker',
         nfts: 'PolymeshPrimitivesNftNfTs',
         sourcePortfolio: 'PolymeshPrimitivesIdentityIdPortfolioId',
         callersPortfolioKind: 'PolymeshPrimitivesIdentityIdPortfolioKind',
@@ -4182,18 +4194,18 @@ export default {
     },
   },
   /**
-   * Lookup508: polymesh_primitives::nft::NFTCollectionKeys
+   * Lookup510: polymesh_primitives::nft::NFTCollectionKeys
    **/
   PolymeshPrimitivesNftNftCollectionKeys: 'Vec<PolymeshPrimitivesAssetMetadataAssetMetadataKey>',
   /**
-   * Lookup511: polymesh_primitives::nft::NFTMetadataAttribute
+   * Lookup513: polymesh_primitives::nft::NFTMetadataAttribute
    **/
   PolymeshPrimitivesNftNftMetadataAttribute: {
     key: 'PolymeshPrimitivesAssetMetadataAssetMetadataKey',
     value: 'Bytes',
   },
   /**
-   * Lookup512: pallet_test_utils::Call<T>
+   * Lookup515: pallet_test_utils::Call<T>
    **/
   PalletTestUtilsCall: {
     _enum: {
@@ -4210,7 +4222,7 @@ export default {
     },
   },
   /**
-   * Lookup513: pallet_confidential_asset::pallet::Call<T>
+   * Lookup516: pallet_confidential_asset::pallet::Call<T>
    **/
   PalletConfidentialAssetCall: {
     _enum: {
@@ -4285,7 +4297,7 @@ export default {
     },
   },
   /**
-   * Lookup515: pallet_confidential_asset::TransactionLeg<T>
+   * Lookup518: pallet_confidential_asset::TransactionLeg<T>
    **/
   PalletConfidentialAssetTransactionLeg: {
     assets: 'BTreeSet<[u8;16]>',
@@ -4295,31 +4307,31 @@ export default {
     mediators: 'BTreeSet<PolymeshPrimitivesIdentityId>',
   },
   /**
-   * Lookup520: pallet_confidential_asset::AffirmTransactions<T>
+   * Lookup523: pallet_confidential_asset::AffirmTransactions<T>
    **/
   PalletConfidentialAssetAffirmTransactions: 'Vec<PalletConfidentialAssetAffirmTransaction>',
   /**
-   * Lookup522: pallet_confidential_asset::AffirmTransaction<T>
+   * Lookup525: pallet_confidential_asset::AffirmTransaction<T>
    **/
   PalletConfidentialAssetAffirmTransaction: {
     id: 'PalletConfidentialAssetTransactionId',
     leg: 'PalletConfidentialAssetAffirmLeg',
   },
   /**
-   * Lookup523: pallet_confidential_asset::AffirmLeg<T>
+   * Lookup526: pallet_confidential_asset::AffirmLeg<T>
    **/
   PalletConfidentialAssetAffirmLeg: {
     legId: 'PalletConfidentialAssetTransactionLegId',
     party: 'PalletConfidentialAssetAffirmParty',
   },
   /**
-   * Lookup525: confidential_assets::burn::ConfidentialBurnProof
+   * Lookup528: confidential_assets::burn::ConfidentialBurnProof
    **/
   ConfidentialAssetsBurnConfidentialBurnProof: {
     encodedInnerProof: 'Bytes',
   },
   /**
-   * Lookup527: pallet_confidential_asset::ConfidentialMoveFunds<T>
+   * Lookup530: pallet_confidential_asset::ConfidentialMoveFunds<T>
    **/
   PalletConfidentialAssetConfidentialMoveFunds: {
     from: 'PalletConfidentialAssetConfidentialAccount',
@@ -4327,7 +4339,7 @@ export default {
     proofs: 'BTreeMap<[u8;16], Bytes>',
   },
   /**
-   * Lookup529: pallet_committee::PolymeshVotes<BlockNumber>
+   * Lookup532: pallet_committee::PolymeshVotes<BlockNumber>
    **/
   PalletCommitteePolymeshVotes: {
     index: 'u32',
@@ -4336,7 +4348,7 @@ export default {
     expiry: 'PolymeshCommonUtilitiesMaybeBlock',
   },
   /**
-   * Lookup531: pallet_committee::Error<T, I>
+   * Lookup534: pallet_committee::Error<T, I>
    **/
   PalletCommitteeError: {
     _enum: [
@@ -4352,79 +4364,82 @@ export default {
     ],
   },
   /**
-   * Lookup541: polymesh_primitives::multisig::ProposalDetails<T>
+   * Lookup543: polymesh_primitives::multisig::ProposalVoteCount
    **/
-  PolymeshPrimitivesMultisigProposalDetails: {
+  PolymeshPrimitivesMultisigProposalVoteCount: {
     approvals: 'u64',
     rejections: 'u64',
-    status: 'PolymeshPrimitivesMultisigProposalStatus',
-    expiry: 'Option<u64>',
-    autoClose: 'bool',
   },
   /**
-   * Lookup542: polymesh_primitives::multisig::ProposalStatus
+   * Lookup544: polymesh_primitives::multisig::ProposalState<Moment>
    **/
-  PolymeshPrimitivesMultisigProposalStatus: {
-    _enum: ['Invalid', 'ActiveOrExpired', 'ExecutionSuccessful', 'ExecutionFailed', 'Rejected'],
+  PolymeshPrimitivesMultisigProposalState: {
+    _enum: {
+      Active: {
+        until: 'Option<u64>',
+      },
+      ExecutionSuccessful: 'Null',
+      ExecutionFailed: 'Null',
+      Rejected: 'Null',
+    },
   },
   /**
-   * Lookup544: pallet_multisig::Error<T>
+   * Lookup546: pallet_multisig::pallet::Error<T>
    **/
   PalletMultisigError: {
     _enum: [
-      'CddMissing',
       'ProposalMissing',
       'DecodingError',
-      'NoSigners',
-      'RequiredSignaturesOutOfBounds',
+      'RequiredSignersIsZero',
       'NotASigner',
       'NoSuchMultisig',
       'NotEnoughSigners',
       'NonceOverflow',
       'AlreadyVoted',
       'AlreadyASigner',
-      'FailedToChargeFee',
-      'IdentityNotCreator',
+      'IdentityNotAdmin',
+      'IdentityNotPayer',
       'ChangeNotAllowed',
       'SignerAlreadyLinkedToMultisig',
       'SignerAlreadyLinkedToIdentity',
-      'MultisigNotAllowedToLinkToItself',
-      'MissingCurrentIdentity',
-      'NotPrimaryKey',
+      'NestingNotAllowed',
       'ProposalAlreadyRejected',
       'ProposalExpired',
       'ProposalAlreadyExecuted',
+      'MaxWeightTooLow',
       'MultisigMissingIdentity',
-      'FailedToSchedule',
       'TooManySigners',
-      'CreatorControlsHaveBeenRemoved',
+      'NoPayingDid',
+      'InvalidExpiryDate',
+      'InvalidatedProposal',
+      'AdminNotFound',
     ],
   },
   /**
-   * Lookup545: substrate_validator_set::pallet::Error<T>
+   * Lookup547: substrate_validator_set::pallet::Error<T>
    **/
   SubstrateValidatorSetError: {
     _enum: ['TooLowValidatorCount', 'Duplicate'],
   },
   /**
-   * Lookup546: sp_staking::offence::OffenceDetails<sp_core::crypto::AccountId32, Offender>
+   * Lookup548: sp_staking::offence::OffenceDetails<sp_core::crypto::AccountId32, Offender>
    **/
   SpStakingOffenceOffenceDetails: {
     offender: '(AccountId32,Null)',
     reporters: 'Vec<AccountId32>',
   },
   /**
-   * Lookup551: sp_core::crypto::KeyTypeId
+   * Lookup554: sp_core::crypto::KeyTypeId
    **/
   SpCoreCryptoKeyTypeId: '[u8;4]',
   /**
-   * Lookup552: pallet_session::pallet::Error<T>
+   * Lookup555: pallet_session::pallet::Error<T>
    **/
   PalletSessionError: {
     _enum: ['InvalidProof', 'NoAssociatedValidatorId', 'DuplicatedKey', 'NoKeys', 'NoAccount'],
   },
   /**
-   * Lookup553: pallet_grandpa::StoredState<N>
+   * Lookup556: pallet_grandpa::StoredState<N>
    **/
   PalletGrandpaStoredState: {
     _enum: {
@@ -4441,7 +4456,7 @@ export default {
     },
   },
   /**
-   * Lookup554: pallet_grandpa::StoredPendingChange<N, Limit>
+   * Lookup557: pallet_grandpa::StoredPendingChange<N, Limit>
    **/
   PalletGrandpaStoredPendingChange: {
     scheduledAt: 'u32',
@@ -4450,7 +4465,7 @@ export default {
     forced: 'Option<u32>',
   },
   /**
-   * Lookup556: pallet_grandpa::pallet::Error<T>
+   * Lookup559: pallet_grandpa::pallet::Error<T>
    **/
   PalletGrandpaError: {
     _enum: [
@@ -4464,55 +4479,49 @@ export default {
     ],
   },
   /**
-   * Lookup560: pallet_im_online::BoundedOpaqueNetworkState<PeerIdEncodingLimit, MultiAddrEncodingLimit, AddressesLimit>
+   * Lookup563: pallet_im_online::BoundedOpaqueNetworkState<PeerIdEncodingLimit, MultiAddrEncodingLimit, AddressesLimit>
    **/
   PalletImOnlineBoundedOpaqueNetworkState: {
     peerId: 'Bytes',
     externalAddresses: 'Vec<Bytes>',
   },
   /**
-   * Lookup565: pallet_im_online::pallet::Error<T>
+   * Lookup568: pallet_im_online::pallet::Error<T>
    **/
   PalletImOnlineError: {
     _enum: ['InvalidKey', 'DuplicatedHeartbeat'],
   },
   /**
-   * Lookup567: pallet_sudo::Error<T>
+   * Lookup570: pallet_sudo::Error<T>
    **/
   PalletSudoError: {
     _enum: ['RequireSudo'],
   },
   /**
-   * Lookup568: pallet_asset::types::TickerRegistration<T>
+   * Lookup571: pallet_asset::types::TickerRegistration<T>
    **/
   PalletAssetTickerRegistration: {
     owner: 'PolymeshPrimitivesIdentityId',
     expiry: 'Option<u64>',
   },
   /**
-   * Lookup569: pallet_asset::types::TickerRegistrationConfig<T>
+   * Lookup572: pallet_asset::types::TickerRegistrationConfig<T>
    **/
   PalletAssetTickerRegistrationConfig: {
     maxTickerLength: 'u8',
     registrationLength: 'Option<u64>',
   },
   /**
-   * Lookup570: pallet_asset::types::SecurityToken
+   * Lookup573: pallet_asset::types::AssetDetails
    **/
-  PalletAssetSecurityToken: {
+  PalletAssetAssetDetails: {
     totalSupply: 'u128',
     ownerDid: 'PolymeshPrimitivesIdentityId',
     divisible: 'bool',
     assetType: 'PolymeshPrimitivesAssetAssetType',
   },
   /**
-   * Lookup574: pallet_asset::types::AssetOwnershipRelation
-   **/
-  PalletAssetAssetOwnershipRelation: {
-    _enum: ['NotOwned', 'TickerOwned', 'AssetOwned'],
-  },
-  /**
-   * Lookup580: pallet_asset::error::Error<T>
+   * Lookup583: pallet_asset::error::Error<T>
    **/
   PalletAssetError: {
     _enum: [
@@ -4559,10 +4568,16 @@ export default {
       'InvalidTransferComplianceFailure',
       'InvalidTransferInvalidReceiverCDD',
       'InvalidTransferInvalidSenderCDD',
+      'TickerRegistrationNotFound',
+      'TickerIsAlreadyLinkedToAnAsset',
+      'AssetIdGenerationError',
+      'TickerNotRegisteredToCaller',
+      'AssetIsAlreadyLinkedToATicker',
+      'TickerIsNotLinkedToTheAsset',
     ],
   },
   /**
-   * Lookup583: pallet_corporate_actions::distribution::Error<T>
+   * Lookup586: pallet_corporate_actions::distribution::Error<T>
    **/
   PalletCorporateActionsDistributionError: {
     _enum: [
@@ -4584,7 +4599,7 @@ export default {
     ],
   },
   /**
-   * Lookup587: polymesh_common_utilities::traits::checkpoint::NextCheckpoints
+   * Lookup590: polymesh_common_utilities::traits::checkpoint::NextCheckpoints
    **/
   PolymeshCommonUtilitiesCheckpointNextCheckpoints: {
     nextAt: 'u64',
@@ -4592,7 +4607,7 @@ export default {
     schedules: 'BTreeMap<u64, u64>',
   },
   /**
-   * Lookup593: pallet_asset::checkpoint::Error<T>
+   * Lookup596: pallet_asset::checkpoint::Error<T>
    **/
   PalletAssetCheckpointError: {
     _enum: [
@@ -4605,14 +4620,14 @@ export default {
     ],
   },
   /**
-   * Lookup594: polymesh_primitives::compliance_manager::AssetCompliance
+   * Lookup597: polymesh_primitives::compliance_manager::AssetCompliance
    **/
   PolymeshPrimitivesComplianceManagerAssetCompliance: {
     paused: 'bool',
     requirements: 'Vec<PolymeshPrimitivesComplianceManagerComplianceRequirement>',
   },
   /**
-   * Lookup596: pallet_compliance_manager::Error<T>
+   * Lookup599: pallet_compliance_manager::Error<T>
    **/
   PalletComplianceManagerError: {
     _enum: [
@@ -4626,7 +4641,7 @@ export default {
     ],
   },
   /**
-   * Lookup599: pallet_corporate_actions::Error<T>
+   * Lookup602: pallet_corporate_actions::Error<T>
    **/
   PalletCorporateActionsError: {
     _enum: [
@@ -4644,7 +4659,7 @@ export default {
     ],
   },
   /**
-   * Lookup602: pallet_corporate_actions::ballot::Error<T>
+   * Lookup606: pallet_corporate_actions::ballot::Error<T>
    **/
   PalletCorporateActionsBallotError: {
     _enum: [
@@ -4665,13 +4680,13 @@ export default {
     ],
   },
   /**
-   * Lookup603: pallet_permissions::Error<T>
+   * Lookup607: pallet_permissions::Error<T>
    **/
   PalletPermissionsError: {
     _enum: ['UnauthorizedCaller'],
   },
   /**
-   * Lookup604: pallet_pips::PipsMetadata<BlockNumber>
+   * Lookup608: pallet_pips::PipsMetadata<BlockNumber>
    **/
   PalletPipsPipsMetadata: {
     id: 'u32',
@@ -4682,14 +4697,14 @@ export default {
     expiry: 'PolymeshCommonUtilitiesMaybeBlock',
   },
   /**
-   * Lookup606: pallet_pips::DepositInfo<sp_core::crypto::AccountId32>
+   * Lookup610: pallet_pips::DepositInfo<sp_core::crypto::AccountId32>
    **/
   PalletPipsDepositInfo: {
     owner: 'AccountId32',
     amount: 'u128',
   },
   /**
-   * Lookup607: pallet_pips::Pip<polymesh_private_runtime_develop::runtime::RuntimeCall, sp_core::crypto::AccountId32>
+   * Lookup611: pallet_pips::Pip<polymesh_private_runtime_develop::runtime::RuntimeCall, sp_core::crypto::AccountId32>
    **/
   PalletPipsPip: {
     id: 'u32',
@@ -4697,7 +4712,7 @@ export default {
     proposer: 'PalletPipsProposer',
   },
   /**
-   * Lookup608: pallet_pips::VotingResult
+   * Lookup612: pallet_pips::VotingResult
    **/
   PalletPipsVotingResult: {
     ayesCount: 'u32',
@@ -4706,11 +4721,11 @@ export default {
     naysStake: 'u128',
   },
   /**
-   * Lookup609: pallet_pips::Vote
+   * Lookup613: pallet_pips::Vote
    **/
   PalletPipsVote: '(bool,u128)',
   /**
-   * Lookup610: pallet_pips::SnapshotMetadata<BlockNumber, sp_core::crypto::AccountId32>
+   * Lookup614: pallet_pips::SnapshotMetadata<BlockNumber, sp_core::crypto::AccountId32>
    **/
   PalletPipsSnapshotMetadata: {
     createdAt: 'u32',
@@ -4718,7 +4733,7 @@ export default {
     id: 'u32',
   },
   /**
-   * Lookup612: pallet_pips::Error<T>
+   * Lookup616: pallet_pips::Error<T>
    **/
   PalletPipsError: {
     _enum: [
@@ -4743,7 +4758,7 @@ export default {
     ],
   },
   /**
-   * Lookup620: pallet_portfolio::Error<T>
+   * Lookup624: pallet_portfolio::Error<T>
    **/
   PalletPortfolioError: {
     _enum: [
@@ -4765,16 +4780,17 @@ export default {
       'EmptyTransfer',
       'MissingOwnersPermission',
       'InvalidTransferSenderIdMatchesReceiverId',
+      'SelfAdditionNotAllowed',
     ],
   },
   /**
-   * Lookup621: pallet_protocol_fee::Error<T>
+   * Lookup625: pallet_protocol_fee::Error<T>
    **/
   PalletProtocolFeeError: {
     _enum: ['InsufficientAccountBalance', 'UnHandledImbalances', 'InsufficientSubsidyBalance'],
   },
   /**
-   * Lookup624: pallet_scheduler::Scheduled<Name, frame_support::traits::preimages::Bounded<polymesh_private_runtime_develop::runtime::RuntimeCall>, BlockNumber, polymesh_private_runtime_develop::runtime::OriginCaller, sp_core::crypto::AccountId32>
+   * Lookup628: pallet_scheduler::Scheduled<Name, frame_support::traits::preimages::Bounded<polymesh_private_runtime_develop::runtime::RuntimeCall>, BlockNumber, polymesh_private_runtime_develop::runtime::OriginCaller, sp_core::crypto::AccountId32>
    **/
   PalletSchedulerScheduled: {
     maybeId: 'Option<[u8;32]>',
@@ -4784,7 +4800,7 @@ export default {
     origin: 'PolymeshPrivateRuntimeDevelopRuntimeOriginCaller',
   },
   /**
-   * Lookup625: frame_support::traits::preimages::Bounded<polymesh_private_runtime_develop::runtime::RuntimeCall>
+   * Lookup629: frame_support::traits::preimages::Bounded<polymesh_private_runtime_develop::runtime::RuntimeCall>
    **/
   FrameSupportPreimagesBounded: {
     _enum: {
@@ -4805,7 +4821,7 @@ export default {
     },
   },
   /**
-   * Lookup628: pallet_scheduler::pallet::Error<T>
+   * Lookup632: pallet_scheduler::pallet::Error<T>
    **/
   PalletSchedulerError: {
     _enum: [
@@ -4817,25 +4833,25 @@ export default {
     ],
   },
   /**
-   * Lookup629: polymesh_primitives::settlement::Venue
+   * Lookup633: polymesh_primitives::settlement::Venue
    **/
   PolymeshPrimitivesSettlementVenue: {
     creator: 'PolymeshPrimitivesIdentityId',
     venueType: 'PolymeshPrimitivesSettlementVenueType',
   },
   /**
-   * Lookup633: polymesh_primitives::settlement::Instruction<Moment, BlockNumber>
+   * Lookup637: polymesh_primitives::settlement::Instruction<Moment, BlockNumber>
    **/
   PolymeshPrimitivesSettlementInstruction: {
     instructionId: 'u64',
-    venueId: 'u64',
+    venueId: 'Option<u64>',
     settlementType: 'PolymeshPrimitivesSettlementSettlementType',
     createdAt: 'Option<u64>',
     tradeDate: 'Option<u64>',
     valueDate: 'Option<u64>',
   },
   /**
-   * Lookup635: polymesh_primitives::settlement::LegStatus<sp_core::crypto::AccountId32>
+   * Lookup639: polymesh_primitives::settlement::LegStatus<sp_core::crypto::AccountId32>
    **/
   PolymeshPrimitivesSettlementLegStatus: {
     _enum: {
@@ -4845,13 +4861,13 @@ export default {
     },
   },
   /**
-   * Lookup637: polymesh_primitives::settlement::AffirmationStatus
+   * Lookup641: polymesh_primitives::settlement::AffirmationStatus
    **/
   PolymeshPrimitivesSettlementAffirmationStatus: {
     _enum: ['Unknown', 'Pending', 'Affirmed'],
   },
   /**
-   * Lookup641: polymesh_primitives::settlement::InstructionStatus<BlockNumber>
+   * Lookup644: polymesh_primitives::settlement::InstructionStatus<BlockNumber>
    **/
   PolymeshPrimitivesSettlementInstructionStatus: {
     _enum: {
@@ -4863,7 +4879,7 @@ export default {
     },
   },
   /**
-   * Lookup643: polymesh_primitives::settlement::MediatorAffirmationStatus<T>
+   * Lookup646: polymesh_primitives::settlement::MediatorAffirmationStatus<T>
    **/
   PolymeshPrimitivesSettlementMediatorAffirmationStatus: {
     _enum: {
@@ -4875,7 +4891,7 @@ export default {
     },
   },
   /**
-   * Lookup644: pallet_settlement::Error<T>
+   * Lookup648: pallet_settlement::Error<T>
    **/
   PalletSettlementError: {
     _enum: [
@@ -4922,28 +4938,29 @@ export default {
       'CallerIsNotAMediator',
       'InvalidExpiryDate',
       'MediatorAffirmationExpired',
+      'OffChainAssetsMustHaveAVenue',
     ],
   },
   /**
-   * Lookup647: polymesh_primitives::statistics::Stat1stKey
+   * Lookup651: polymesh_primitives::statistics::Stat1stKey
    **/
   PolymeshPrimitivesStatisticsStat1stKey: {
-    asset: 'PolymeshPrimitivesStatisticsAssetScope',
+    assetId: 'PolymeshPrimitivesAssetAssetId',
     statType: 'PolymeshPrimitivesStatisticsStatType',
   },
   /**
-   * Lookup648: polymesh_primitives::transfer_compliance::AssetTransferCompliance<S>
+   * Lookup652: polymesh_primitives::transfer_compliance::AssetTransferCompliance<S>
    **/
   PolymeshPrimitivesTransferComplianceAssetTransferCompliance: {
     paused: 'bool',
     requirements: 'BTreeSet<PolymeshPrimitivesTransferComplianceTransferCondition>',
   },
   /**
-   * Lookup652: pallet_statistics::Error<T>
+   * Lookup656: pallet_statistics::Error<T>
    **/
   PalletStatisticsError: {
     _enum: [
-      'InvalidTransfer',
+      'InvalidTransferStatisticsFailure',
       'StatTypeMissing',
       'StatTypeNeededByTransferCondition',
       'CannotRemoveStatTypeInUse',
@@ -4953,7 +4970,7 @@ export default {
     ],
   },
   /**
-   * Lookup654: pallet_sto::Error<T>
+   * Lookup659: pallet_sto::Error<T>
    **/
   PalletStoError: {
     _enum: [
@@ -4972,13 +4989,13 @@ export default {
     ],
   },
   /**
-   * Lookup655: pallet_treasury::Error<T>
+   * Lookup660: pallet_treasury::Error<T>
    **/
   PalletTreasuryError: {
     _enum: ['InsufficientBalance', 'InvalidIdentity'],
   },
   /**
-   * Lookup656: pallet_utility::pallet::Error<T>
+   * Lookup661: pallet_utility::pallet::Error<T>
    **/
   PalletUtilityError: {
     _enum: [
@@ -4990,13 +5007,13 @@ export default {
     ],
   },
   /**
-   * Lookup657: pallet_base::Error<T>
+   * Lookup662: pallet_base::Error<T>
    **/
   PalletBaseError: {
     _enum: ['TooLong', 'CounterOverflow'],
   },
   /**
-   * Lookup659: pallet_external_agents::Error<T>
+   * Lookup665: pallet_external_agents::Error<T>
    **/
   PalletExternalAgentsError: {
     _enum: [
@@ -5009,14 +5026,14 @@ export default {
     ],
   },
   /**
-   * Lookup660: pallet_relayer::Subsidy<sp_core::crypto::AccountId32>
+   * Lookup666: pallet_relayer::Subsidy<sp_core::crypto::AccountId32>
    **/
   PalletRelayerSubsidy: {
     payingKey: 'AccountId32',
     remaining: 'u128',
   },
   /**
-   * Lookup661: pallet_relayer::Error<T>
+   * Lookup667: pallet_relayer::Error<T>
    **/
   PalletRelayerError: {
     _enum: [
@@ -5030,7 +5047,7 @@ export default {
     ],
   },
   /**
-   * Lookup663: pallet_contracts::wasm::PrefabWasmModule<T>
+   * Lookup669: pallet_contracts::wasm::PrefabWasmModule<T>
    **/
   PalletContractsWasmPrefabWasmModule: {
     instructionWeightsVersion: 'Compact<u32>',
@@ -5040,7 +5057,7 @@ export default {
     determinism: 'PalletContractsWasmDeterminism',
   },
   /**
-   * Lookup665: pallet_contracts::wasm::OwnerInfo<T>
+   * Lookup671: pallet_contracts::wasm::OwnerInfo<T>
    **/
   PalletContractsWasmOwnerInfo: {
     owner: 'AccountId32',
@@ -5048,7 +5065,7 @@ export default {
     refcount: 'Compact<u64>',
   },
   /**
-   * Lookup666: pallet_contracts::storage::ContractInfo<T>
+   * Lookup672: pallet_contracts::storage::ContractInfo<T>
    **/
   PalletContractsStorageContractInfo: {
     trieId: 'Bytes',
@@ -5061,13 +5078,13 @@ export default {
     storageBaseDeposit: 'u128',
   },
   /**
-   * Lookup669: pallet_contracts::storage::DeletedContract
+   * Lookup675: pallet_contracts::storage::DeletedContract
    **/
   PalletContractsStorageDeletedContract: {
     trieId: 'Bytes',
   },
   /**
-   * Lookup671: pallet_contracts::schedule::Schedule<T>
+   * Lookup677: pallet_contracts::schedule::Schedule<T>
    **/
   PalletContractsSchedule: {
     limits: 'PalletContractsScheduleLimits',
@@ -5075,7 +5092,7 @@ export default {
     hostFnWeights: 'PalletContractsScheduleHostFnWeights',
   },
   /**
-   * Lookup672: pallet_contracts::schedule::Limits
+   * Lookup678: pallet_contracts::schedule::Limits
    **/
   PalletContractsScheduleLimits: {
     eventTopics: 'u32',
@@ -5089,7 +5106,7 @@ export default {
     payloadLen: 'u32',
   },
   /**
-   * Lookup673: pallet_contracts::schedule::InstructionWeights<T>
+   * Lookup679: pallet_contracts::schedule::InstructionWeights<T>
    **/
   PalletContractsScheduleInstructionWeights: {
     _alias: {
@@ -5151,7 +5168,7 @@ export default {
     i64rotr: 'u32',
   },
   /**
-   * Lookup674: pallet_contracts::schedule::HostFnWeights<T>
+   * Lookup680: pallet_contracts::schedule::HostFnWeights<T>
    **/
   PalletContractsScheduleHostFnWeights: {
     _alias: {
@@ -5218,7 +5235,7 @@ export default {
     instantiationNonce: 'SpWeightsWeightV2Weight',
   },
   /**
-   * Lookup675: pallet_contracts::pallet::Error<T>
+   * Lookup681: pallet_contracts::pallet::Error<T>
    **/
   PalletContractsError: {
     _enum: [
@@ -5253,7 +5270,7 @@ export default {
     ],
   },
   /**
-   * Lookup677: polymesh_contracts::Error<T>
+   * Lookup683: polymesh_contracts::Error<T>
    **/
   PolymeshContractsError: {
     _enum: [
@@ -5272,7 +5289,7 @@ export default {
     ],
   },
   /**
-   * Lookup678: pallet_preimage::RequestStatus<sp_core::crypto::AccountId32, Balance>
+   * Lookup684: pallet_preimage::RequestStatus<sp_core::crypto::AccountId32, Balance>
    **/
   PalletPreimageRequestStatus: {
     _enum: {
@@ -5288,20 +5305,20 @@ export default {
     },
   },
   /**
-   * Lookup683: pallet_preimage::pallet::Error<T>
+   * Lookup689: pallet_preimage::pallet::Error<T>
    **/
   PalletPreimageError: {
     _enum: ['TooBig', 'AlreadyNoted', 'NotAuthorized', 'NotNoted', 'Requested', 'NotRequested'],
   },
   /**
-   * Lookup684: polymesh_primitives::nft::NFTCollection
+   * Lookup690: polymesh_primitives::nft::NFTCollection
    **/
   PolymeshPrimitivesNftNftCollection: {
     id: 'u64',
-    ticker: 'PolymeshPrimitivesTicker',
+    assetId: 'PolymeshPrimitivesAssetAssetId',
   },
   /**
-   * Lookup689: pallet_nft::Error<T>
+   * Lookup695: pallet_nft::Error<T>
    **/
   PalletNftError: {
     _enum: [
@@ -5331,14 +5348,17 @@ export default {
       'InvalidNFTTransferSenderIdMatchesReceiverId',
       'InvalidNFTTransferInvalidReceiverCDD',
       'InvalidNFTTransferInvalidSenderCDD',
+      'InvalidAssetId',
+      'NFTIsLocked',
+      'NumberOfKeysIsLessThanExpected',
     ],
   },
   /**
-   * Lookup690: pallet_test_utils::Error<T>
+   * Lookup696: pallet_test_utils::Error<T>
    **/
   PalletTestUtilsError: 'Null',
   /**
-   * Lookup693: pallet_confidential_asset::ConfidentialAssetDetails<T>
+   * Lookup699: pallet_confidential_asset::ConfidentialAssetDetails<T>
    **/
   PalletConfidentialAssetConfidentialAssetDetails: {
     totalSupply: 'u128',
@@ -5346,13 +5366,13 @@ export default {
     data: 'Bytes',
   },
   /**
-   * Lookup696: pallet_confidential_asset::TransactionLegState
+   * Lookup702: pallet_confidential_asset::TransactionLegState
    **/
   PalletConfidentialAssetTransactionLegState: {
     assetState: 'BTreeMap<[u8;16], PalletConfidentialAssetTransactionLegAssetState>',
   },
   /**
-   * Lookup698: pallet_confidential_asset::TransactionLegAssetState
+   * Lookup704: pallet_confidential_asset::TransactionLegAssetState
    **/
   PalletConfidentialAssetTransactionLegAssetState: {
     senderInitBalance: 'PolymeshHostFunctionsElgamalHostCipherText',
@@ -5360,13 +5380,13 @@ export default {
     receiverAmount: 'PolymeshHostFunctionsElgamalHostCipherText',
   },
   /**
-   * Lookup704: pallet_confidential_asset::LegParty
+   * Lookup710: pallet_confidential_asset::LegParty
    **/
   PalletConfidentialAssetLegParty: {
     _enum: ['Sender', 'Receiver', 'Mediator'],
   },
   /**
-   * Lookup705: pallet_confidential_asset::TransactionStatus<BlockNumber>
+   * Lookup711: pallet_confidential_asset::TransactionStatus<BlockNumber>
    **/
   PalletConfidentialAssetTransactionStatus: {
     _enum: {
@@ -5376,7 +5396,7 @@ export default {
     },
   },
   /**
-   * Lookup706: pallet_confidential_asset::Transaction<BlockNumber>
+   * Lookup712: pallet_confidential_asset::Transaction<BlockNumber>
    **/
   PalletConfidentialAssetTransaction: {
     venueId: 'u64',
@@ -5384,7 +5404,7 @@ export default {
     memo: 'Option<PolymeshPrimitivesMemo>',
   },
   /**
-   * Lookup707: pallet_confidential_asset::pallet::Error<T>
+   * Lookup713: pallet_confidential_asset::pallet::Error<T>
    **/
   PalletConfidentialAssetError: {
     _enum: [
@@ -5423,39 +5443,39 @@ export default {
     ],
   },
   /**
-   * Lookup710: frame_system::extensions::check_spec_version::CheckSpecVersion<T>
+   * Lookup716: frame_system::extensions::check_spec_version::CheckSpecVersion<T>
    **/
   FrameSystemExtensionsCheckSpecVersion: 'Null',
   /**
-   * Lookup711: frame_system::extensions::check_tx_version::CheckTxVersion<T>
+   * Lookup717: frame_system::extensions::check_tx_version::CheckTxVersion<T>
    **/
   FrameSystemExtensionsCheckTxVersion: 'Null',
   /**
-   * Lookup712: frame_system::extensions::check_genesis::CheckGenesis<T>
+   * Lookup718: frame_system::extensions::check_genesis::CheckGenesis<T>
    **/
   FrameSystemExtensionsCheckGenesis: 'Null',
   /**
-   * Lookup715: frame_system::extensions::check_nonce::CheckNonce<T>
+   * Lookup721: frame_system::extensions::check_nonce::CheckNonce<T>
    **/
   FrameSystemExtensionsCheckNonce: 'Compact<u32>',
   /**
-   * Lookup716: polymesh_extensions::check_weight::CheckWeight<T>
+   * Lookup722: polymesh_extensions::check_weight::CheckWeight<T>
    **/
   PolymeshExtensionsCheckWeight: 'FrameSystemExtensionsCheckWeight',
   /**
-   * Lookup717: frame_system::extensions::check_weight::CheckWeight<T>
+   * Lookup723: frame_system::extensions::check_weight::CheckWeight<T>
    **/
   FrameSystemExtensionsCheckWeight: 'Null',
   /**
-   * Lookup718: pallet_transaction_payment::ChargeTransactionPayment<T>
+   * Lookup724: pallet_transaction_payment::ChargeTransactionPayment<T>
    **/
   PalletTransactionPaymentChargeTransactionPayment: 'Compact<u128>',
   /**
-   * Lookup719: pallet_permissions::StoreCallMetadata<T>
+   * Lookup725: pallet_permissions::StoreCallMetadata<T>
    **/
   PalletPermissionsStoreCallMetadata: 'Null',
   /**
-   * Lookup720: polymesh_private_runtime_develop::runtime::Runtime
+   * Lookup726: polymesh_private_runtime_develop::runtime::Runtime
    **/
   PolymeshPrivateRuntimeDevelopRuntime: 'Null',
 };

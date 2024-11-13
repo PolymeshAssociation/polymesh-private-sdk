@@ -178,6 +178,12 @@ declare module '@polkadot/api-base/types/consts' {
        **/
       deposit: u128 & AugmentedConst<ApiType>;
     };
+    multiSig: {
+      /**
+       * Maximum number of signers that can be added/removed in one call.
+       **/
+      maxSigners: u32 & AugmentedConst<ApiType>;
+    };
     nft: {
       maxNumberOfCollectionKeys: u8 & AugmentedConst<ApiType>;
       maxNumberOfNFTsCount: u32 & AugmentedConst<ApiType>;
@@ -197,6 +203,7 @@ declare module '@polkadot/api-base/types/consts' {
       maxNumberOfNFTs: u32 & AugmentedConst<ApiType>;
       maxNumberOfNFTsPerLeg: u32 & AugmentedConst<ApiType>;
       maxNumberOfOffChainAssets: u32 & AugmentedConst<ApiType>;
+      maxNumberOfPortfolios: u32 & AugmentedConst<ApiType>;
       maxNumberOfVenueSigners: u32 & AugmentedConst<ApiType>;
     };
     statistics: {

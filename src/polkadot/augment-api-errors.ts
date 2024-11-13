@@ -25,6 +25,14 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       AssetAlreadyDivisible: AugmentedError<ApiType>;
       /**
+       * An unexpected error when generating a new asset ID.
+       **/
+      AssetIdGenerationError: AugmentedError<ApiType>;
+      /**
+       * The given asset is already linked to a ticker.
+       **/
+      AssetIsAlreadyLinkedToATicker: AugmentedError<ApiType>;
+      /**
        * Asset Metadata Global type already exists.
        **/
       AssetMetadataGlobalKeyAlreadyExists: AugmentedError<ApiType>;
@@ -125,7 +133,7 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       MaxLengthOfAssetNameExceeded: AugmentedError<ApiType>;
       /**
-       * No such token.
+       * No token associated to the given asset ID.
        **/
       NoSuchAsset: AugmentedError<ApiType>;
       /**
@@ -157,13 +165,29 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       TickerFirstByteNotValid: AugmentedError<ApiType>;
       /**
+       * The given ticker is already linked to an asset.
+       **/
+      TickerIsAlreadyLinkedToAnAsset: AugmentedError<ApiType>;
+      /**
+       * The given ticker is not linked to the given asset.
+       **/
+      TickerIsNotLinkedToTheAsset: AugmentedError<ApiType>;
+      /**
        * The ticker has non-alphanumeric parts.
        **/
       TickerNotAlphanumeric: AugmentedError<ApiType>;
       /**
+       * The ticker doesn't belong to the caller.
+       **/
+      TickerNotRegisteredToCaller: AugmentedError<ApiType>;
+      /**
        * Registration of ticker has expired.
        **/
       TickerRegistrationExpired: AugmentedError<ApiType>;
+      /**
+       * The ticker registration associated to the ticker was not found.
+       **/
+      TickerRegistrationNotFound: AugmentedError<ApiType>;
       /**
        * The ticker length is over the limit.
        **/
@@ -322,10 +346,6 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       LastMemberCannotQuit: AugmentedError<ApiType>;
       /**
-       * Missing current DID
-       **/
-      MissingCurrentIdentity: AugmentedError<ApiType>;
-      /**
        * Can't remove a member that doesn't exist.
        **/
       NoSuchMember: AugmentedError<ApiType>;
@@ -356,7 +376,7 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       ScheduleNotRemovable: AugmentedError<ApiType>;
       /**
-       * The new schedule would put the ticker over the maximum complexity allowed.
+       * The new schedule would put the asset over the maximum complexity allowed.
        **/
       SchedulesOverMaxComplexity: AugmentedError<ApiType>;
     };
@@ -377,10 +397,6 @@ declare module '@polkadot/api-base/types/errors' {
        * Last member of the committee can not quit.
        **/
       LastMemberCannotQuit: AugmentedError<ApiType>;
-      /**
-       * Missing current DID
-       **/
-      MissingCurrentIdentity: AugmentedError<ApiType>;
       /**
        * Can't remove a member that doesn't exist.
        **/
@@ -795,15 +811,15 @@ declare module '@polkadot/api-base/types/errors' {
     };
     externalAgents: {
       /**
-       * The provided `agent` is already an agent for the `Ticker`.
+       * The provided `agent` is already an agent for the `AssetId`.
        **/
       AlreadyAnAgent: AugmentedError<ApiType>;
       /**
-       * An AG with the given `AGId` did not exist for the `Ticker`.
+       * An AG with the given `AGId` did not exist for the `AssetId`.
        **/
       NoSuchAG: AugmentedError<ApiType>;
       /**
-       * The provided `agent` is not an agent for the `Ticker`.
+       * The provided `agent` is not an agent for the `AssetId`.
        **/
       NotAnAgent: AugmentedError<ApiType>;
       /**
@@ -947,13 +963,9 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       KeyNotAllowed: AugmentedError<ApiType>;
       /**
-       * Missing current identity on the transaction
+       * Caller is missing an identity.
        **/
-      MissingCurrentIdentity: AugmentedError<ApiType>;
-      /**
-       * Multisig can not be unlinked from an identity while it still holds POLYX
-       **/
-      MultiSigHasBalance: AugmentedError<ApiType>;
+      MissingIdentity: AugmentedError<ApiType>;
       /**
        * The Identity doesn't have a parent identity.
        **/
@@ -1025,6 +1037,10 @@ declare module '@polkadot/api-base/types/errors' {
     };
     multiSig: {
       /**
+       * Multisig has no admin.
+       **/
+      AdminNotFound: AugmentedError<ApiType>;
+      /**
        * Already a signer.
        **/
       AlreadyASigner: AugmentedError<ApiType>;
@@ -1033,53 +1049,49 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       AlreadyVoted: AugmentedError<ApiType>;
       /**
-       * The multisig is not attached to a CDD'd identity.
-       **/
-      CddMissing: AugmentedError<ApiType>;
-      /**
        * Changing multisig parameters not allowed since multisig is a primary key.
        **/
       ChangeNotAllowed: AugmentedError<ApiType>;
-      /**
-       * The creator is no longer allowed to call via creator extrinsics.
-       **/
-      CreatorControlsHaveBeenRemoved: AugmentedError<ApiType>;
       /**
        * Multisig address.
        **/
       DecodingError: AugmentedError<ApiType>;
       /**
-       * Couldn't charge fee for the transaction.
+       * Identity provided is not the multisig's admin.
        **/
-      FailedToChargeFee: AugmentedError<ApiType>;
+      IdentityNotAdmin: AugmentedError<ApiType>;
       /**
-       * Scheduling of a proposal fails
+       * Identity provided is not the multisig's payer.
        **/
-      FailedToSchedule: AugmentedError<ApiType>;
+      IdentityNotPayer: AugmentedError<ApiType>;
       /**
-       * Identity provided is not the multisig's creator.
+       * The proposal has been invalidated after a multisg update.
        **/
-      IdentityNotCreator: AugmentedError<ApiType>;
+      InvalidatedProposal: AugmentedError<ApiType>;
       /**
-       * Current DID is missing
+       * Expiry must be in the future.
        **/
-      MissingCurrentIdentity: AugmentedError<ApiType>;
+      InvalidExpiryDate: AugmentedError<ApiType>;
+      /**
+       * Max weight not enough to execute proposal.
+       **/
+      MaxWeightTooLow: AugmentedError<ApiType>;
       /**
        * Multisig is not attached to an identity
        **/
       MultisigMissingIdentity: AugmentedError<ApiType>;
       /**
-       * Multisig not allowed to add itself as a signer.
+       * A multisig can't be a signer of another multisig.
        **/
-      MultisigNotAllowedToLinkToItself: AugmentedError<ApiType>;
+      NestingNotAllowed: AugmentedError<ApiType>;
       /**
        * A nonce overflow.
        **/
       NonceOverflow: AugmentedError<ApiType>;
       /**
-       * No signers.
+       * Multisig doesn't have a paying DID.
        **/
-      NoSigners: AugmentedError<ApiType>;
+      NoPayingDid: AugmentedError<ApiType>;
       /**
        * No such multisig.
        **/
@@ -1089,13 +1101,10 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       NotASigner: AugmentedError<ApiType>;
       /**
-       * Not enough signers.
+       * Not enough signers.  The number of signers has to be greater then or equal to
+       * the required number of signers to approve proposals.
        **/
       NotEnoughSigners: AugmentedError<ApiType>;
-      /**
-       * The function can only be called by the primary key of the did
-       **/
-      NotPrimaryKey: AugmentedError<ApiType>;
       /**
        * Proposal was executed earlier
        **/
@@ -1113,9 +1122,9 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       ProposalMissing: AugmentedError<ApiType>;
       /**
-       * Too few or too many required signatures.
+       * Required number of signers must be greater then zero.
        **/
-      RequiredSignaturesOutOfBounds: AugmentedError<ApiType>;
+      RequiredSignersIsZero: AugmentedError<ApiType>;
       /**
        * Signer is an account key that is already associated with an identity.
        **/
@@ -1125,7 +1134,7 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       SignerAlreadyLinkedToMultisig: AugmentedError<ApiType>;
       /**
-       * More signers than required.
+       * Tried to add/remove too many signers.
        **/
       TooManySigners: AugmentedError<ApiType>;
     };
@@ -1139,7 +1148,7 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       BalanceUnderflow: AugmentedError<ApiType>;
       /**
-       * The ticker is already associated to an NFT collection.
+       * The asset_id is already associated to an NFT collection.
        **/
       CollectionAlredyRegistered: AugmentedError<ApiType>;
       /**
@@ -1154,6 +1163,10 @@ declare module '@polkadot/api-base/types/errors' {
        * A duplicate metadata key has been passed as parameter.
        **/
       DuplicateMetadataKey: AugmentedError<ApiType>;
+      /**
+       * There's no asset associated to the given asset_id.
+       **/
+      InvalidAssetId: AugmentedError<ApiType>;
       /**
        * The asset must be of type non-fungible.
        **/
@@ -1215,9 +1228,17 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       MaxNumberOfNFTsPerLegExceeded: AugmentedError<ApiType>;
       /**
+       * The NFT is locked.
+       **/
+      NFTIsLocked: AugmentedError<ApiType>;
+      /**
        * The NFT does not exist.
        **/
       NFTNotFound: AugmentedError<ApiType>;
+      /**
+       * The number of keys in the collection is greater than the input.
+       **/
+      NumberOfKeysIsLessThanExpected: AugmentedError<ApiType>;
       /**
        * An overflow while calculating the updated supply.
        **/
@@ -1480,6 +1501,10 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       SecondaryKeyNotAuthorizedForPortfolio: AugmentedError<ApiType>;
       /**
+       * Adding itself as an AllowedCustodian is not permitted.
+       **/
+      SelfAdditionNotAllowed: AugmentedError<ApiType>;
+      /**
        * The porfolio's custody is with someone other than the caller.
        **/
       UnauthorizedCustodian: AugmentedError<ApiType>;
@@ -1708,6 +1733,10 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       OffChainAssetCantBeLocked: AugmentedError<ApiType>;
       /**
+       * Offchain assets must have a venue.
+       **/
+      OffChainAssetsMustHaveAVenue: AugmentedError<ApiType>;
+      /**
        * Receipt already used.
        **/
       ReceiptAlreadyClaimed: AugmentedError<ApiType>;
@@ -1756,7 +1785,7 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       UnexpectedLegStatus: AugmentedError<ApiType>;
       /**
-       * Ticker could not be found on chain.
+       * AssetId could not be found on chain.
        **/
       UnexpectedOFFChainAsset: AugmentedError<ApiType>;
       /**
@@ -1778,9 +1807,9 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       CannotRemoveStatTypeInUse: AugmentedError<ApiType>;
       /**
-       * Transfer not allowed.
+       * Invalid transfer [`TransferCondition`] not respected.
        **/
-      InvalidTransfer: AugmentedError<ApiType>;
+      InvalidTransferStatisticsFailure: AugmentedError<ApiType>;
       /**
        * The limit of StatTypes allowed for an asset has been reached.
        **/
@@ -1947,10 +1976,6 @@ declare module '@polkadot/api-base/types/errors' {
        **/
       LastMemberCannotQuit: AugmentedError<ApiType>;
       /**
-       * Missing current DID
-       **/
-      MissingCurrentIdentity: AugmentedError<ApiType>;
-      /**
        * Can't remove a member that doesn't exist.
        **/
       NoSuchMember: AugmentedError<ApiType>;
@@ -2028,10 +2053,6 @@ declare module '@polkadot/api-base/types/errors' {
        * Last member of the committee can not quit.
        **/
       LastMemberCannotQuit: AugmentedError<ApiType>;
-      /**
-       * Missing current DID
-       **/
-      MissingCurrentIdentity: AugmentedError<ApiType>;
       /**
        * Can't remove a member that doesn't exist.
        **/

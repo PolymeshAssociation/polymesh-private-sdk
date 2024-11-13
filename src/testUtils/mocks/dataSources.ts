@@ -50,8 +50,7 @@ import {
 } from '@polkadot/types/interfaces';
 import {
   ConfidentialAssetsBurnConfidentialBurnProof,
-  PalletAssetAssetOwnershipRelation,
-  PalletAssetSecurityToken,
+  PalletAssetAssetDetails,
   PalletAssetTickerRegistration,
   PalletAssetTickerRegistrationConfig,
   PalletConfidentialAssetAuditorAccount,
@@ -85,6 +84,7 @@ import {
   PolymeshCommonUtilitiesProtocolFeeProtocolOp,
   PolymeshHostFunctionsElgamalHostCipherText,
   PolymeshPrimitivesAgentAgentGroup,
+  PolymeshPrimitivesAssetAssetId,
   PolymeshPrimitivesAssetAssetType,
   PolymeshPrimitivesAssetIdentifier,
   PolymeshPrimitivesAssetNonFungibleType,
@@ -109,11 +109,11 @@ import {
   PolymeshPrimitivesIdentityIdPortfolioKind,
   PolymeshPrimitivesJurisdictionCountryCode,
   PolymeshPrimitivesMemo,
-  PolymeshPrimitivesMultisigProposalStatus,
   PolymeshPrimitivesNftNfTs,
   PolymeshPrimitivesPortfolioFund,
   PolymeshPrimitivesPosRatio,
   PolymeshPrimitivesSecondaryKey,
+  PolymeshPrimitivesSecondaryKeyExtrinsicPermissions,
   PolymeshPrimitivesSecondaryKeyKeyRecord,
   PolymeshPrimitivesSecondaryKeyPalletPermissions,
   PolymeshPrimitivesSecondaryKeyPermissions,
@@ -125,10 +125,8 @@ import {
   PolymeshPrimitivesSettlementSettlementType,
   PolymeshPrimitivesSettlementVenueType,
   PolymeshPrimitivesStatisticsStatClaim,
-  PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName,
-  PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions,
+  PolymeshPrimitivesSubsetSubsetRestrictionAssetId,
   PolymeshPrimitivesSubsetSubsetRestrictionPortfolioId,
-  PolymeshPrimitivesSubsetSubsetRestrictionTicker,
   PolymeshPrimitivesTicker,
   PolymeshPrimitivesTransferComplianceTransferCondition,
 } from '@polkadot/types/lookup';
@@ -161,7 +159,6 @@ import { Account, AuthorizationRequest, ChildIdentity, Context, Identity } from 
 import {
   AssetComplianceResult,
   AuthorizationType as MeshAuthorizationType,
-  CanTransferResult,
   CddStatus,
   ComplianceRequirementResult,
   ConditionResult,
@@ -650,6 +647,7 @@ const defaultContextOptions: ContextOptions = {
   getMiddlewareMetadata: {
     chain: 'Polymesh Develop',
     specName: 'polymesh_dev',
+    sqVersion: '17',
     genesisHash: 'someGenesisHash',
     lastProcessedHeight: new BigNumber(10000),
     lastProcessedTimestamp: new Date('01/06/2023'),
@@ -2137,7 +2135,7 @@ export const createMockSecurityToken = (token?: {
   ownerDid: PolymeshPrimitivesIdentityId;
   divisible: bool;
   assetType: PolymeshPrimitivesAssetAssetType;
-}): MockCodec<PalletAssetSecurityToken> => {
+}): MockCodec<PalletAssetAssetDetails> => {
   const st = token ?? {
     totalSupply: createMockBalance(),
     ownerDid: createMockIdentityId(),
@@ -2146,7 +2144,6 @@ export const createMockSecurityToken = (token?: {
   };
   return createMockCodec({ ...st }, !token);
 };
-
 /**
  * @hidden
  * NOTE: `isEmpty` will be set to true if no value is passed
@@ -2170,50 +2167,6 @@ export const createMockDocument = (document?: {
       ...doc,
     },
     !document
-  );
-};
-
-/**
- * @hidden
- * NOTE: `isEmpty` will be set to true if no value is passed
- */
-export const createMockDispatchableNames = (
-  dispatchableNames?:
-    | 'Whole'
-    | { These: Bytes[] }
-    | { Except: Bytes[] }
-    | PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName
-): MockCodec<PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName> => {
-  if (isCodec<PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName>(dispatchableNames)) {
-    return dispatchableNames as MockCodec<PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName>;
-  }
-
-  return createMockEnum<PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName>(
-    dispatchableNames
-  );
-};
-
-/**
- * @hidden
- * NOTE: `isEmpty` will be set to true if no value is passed
- */
-export const createMockPalletPermissions = (permissions?: {
-  palletName: string | Parameters<typeof createMockBytes>[0];
-  dispatchableNames:
-    | PolymeshPrimitivesSubsetSubsetRestrictionDispatchableName
-    | Parameters<typeof createMockDispatchableNames>[0];
-}): MockCodec<PolymeshPrimitivesSecondaryKeyPalletPermissions> => {
-  const { palletName, dispatchableNames } = permissions ?? {
-    palletName: undefined,
-    dispatchableNames: createMockDispatchableNames(),
-  };
-
-  return createMockCodec(
-    {
-      palletName: createMockBytes(palletName),
-      dispatchableNames: createMockDispatchableNames(dispatchableNames),
-    },
-    !permissions
   );
 };
 
@@ -2365,10 +2318,10 @@ export const createMockFundraiserName = (name?: string): Bytes => createMockByte
 export const createMockAssetPermissions = (
   assetPermissions?:
     | 'Whole'
-    | { These: PolymeshPrimitivesTicker[] }
-    | { Except: PolymeshPrimitivesTicker[] }
-): MockCodec<PolymeshPrimitivesSubsetSubsetRestrictionTicker> => {
-  return createMockEnum<PolymeshPrimitivesSubsetSubsetRestrictionTicker>(assetPermissions);
+    | { These: PolymeshPrimitivesAssetAssetId[] }
+    | { Except: PolymeshPrimitivesAssetAssetId[] }
+): MockCodec<PolymeshPrimitivesSubsetSubsetRestrictionAssetId> => {
+  return createMockEnum<PolymeshPrimitivesSubsetSubsetRestrictionAssetId>(assetPermissions);
 };
 
 /**
@@ -2378,12 +2331,10 @@ export const createMockAssetPermissions = (
 export const createMockExtrinsicPermissions = (
   assetPermissions?:
     | 'Whole'
-    | { These: PolymeshPrimitivesSecondaryKeyPalletPermissions[] }
-    | { Except: PolymeshPrimitivesSecondaryKeyPalletPermissions[] }
-): MockCodec<PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions> => {
-  return createMockEnum<PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions>(
-    assetPermissions
-  );
+    | { These: BTreeMap<Text, PolymeshPrimitivesSecondaryKeyPalletPermissions> }
+    | { Except: BTreeMap<Text, PolymeshPrimitivesSecondaryKeyPalletPermissions> }
+): MockCodec<PolymeshPrimitivesSecondaryKeyExtrinsicPermissions> => {
+  return createMockEnum<PolymeshPrimitivesSecondaryKeyExtrinsicPermissions>(assetPermissions);
 };
 
 /**
@@ -2404,8 +2355,8 @@ export const createMockPortfolioPermissions = (
  * NOTE: `isEmpty` will be set to true if no value is passed
  */
 export const createMockPermissions = (permissions?: {
-  asset: PolymeshPrimitivesSubsetSubsetRestrictionTicker;
-  extrinsic: PolymeshPrimitivesSubsetSubsetRestrictionPalletPermissions;
+  asset: PolymeshPrimitivesSubsetSubsetRestrictionAssetId;
+  extrinsic: PolymeshPrimitivesSecondaryKeyExtrinsicPermissions;
   portfolio: PolymeshPrimitivesSubsetSubsetRestrictionPortfolioId;
 }): MockCodec<PolymeshPrimitivesSecondaryKeyPermissions> => {
   const perms = permissions ?? {
@@ -2870,44 +2821,12 @@ export const createMockKeyRecord = (
  * @hidden
  * NOTE: `isEmpty` will be set to true if no value is passed
  */
-export const createMockCanTransferResult = (
-  canTransferResult?: { Ok: u8 } | { Err: Bytes }
-): MockCodec<CanTransferResult> => createMockEnum<CanTransferResult>(canTransferResult);
-
-/**
- * @hidden
- * NOTE: `isEmpty` will be set to true if no value is passed
- */
 export const createMockText = (value?: string | Text): MockCodec<Text> => {
   if (isCodec<Text>(value)) {
     return value as MockCodec<Text>;
   }
 
   return createMockStringCodec<Text>(value);
-};
-
-/**
- * @hidden
- * NOTE: `isEmpty` will be set to true if no value is passed
- */
-export const createMockAssetOwnershipRelation = (
-  assetOwnershipRelation?: 'NotOwned' | 'TickerOwned' | 'AssetOwned'
-): MockCodec<PalletAssetAssetOwnershipRelation> =>
-  createMockEnum<PalletAssetAssetOwnershipRelation>(assetOwnershipRelation);
-
-/**
- * @hidden
- * NOTE: `isEmpty` will be set to true if no value is passed
- */
-export const createMockProposalStatus = (
-  proposalStatus?:
-    | 'Invalid'
-    | 'ActiveOrExpired'
-    | 'ExecutionSuccessful'
-    | 'ExecutionFailed'
-    | 'Rejected'
-): MockCodec<PolymeshPrimitivesMultisigProposalStatus> => {
-  return createMockEnum(proposalStatus) as MockCodec<PolymeshPrimitivesMultisigProposalStatus>;
 };
 
 /**
@@ -3413,22 +3332,36 @@ export const createMockCorporateAction = (corporateAction?: {
  * @hidden
  * NOTE: `isEmpty` will be set to true if no value is passed
  */
+export const createMockAssetId = (
+  assetId?: string | PolymeshPrimitivesAssetAssetId
+): MockCodec<PolymeshPrimitivesAssetAssetId> => {
+  if (isCodec<PolymeshPrimitivesAssetAssetId>(assetId)) {
+    return assetId as MockCodec<PolymeshPrimitivesAssetAssetId>;
+  }
+
+  return createMockStringCodec<PolymeshPrimitivesAssetAssetId>(assetId);
+};
+
+/**
+ * @hidden
+ * NOTE: `isEmpty` will be set to true if no value is passed
+ */
 export const createMockCAId = (
   caId?:
     | PalletCorporateActionsCaId
     | {
-        ticker: PolymeshPrimitivesTicker | Parameters<typeof createMockTicker>[0];
+        assetId: PolymeshPrimitivesAssetAssetId | Parameters<typeof createMockAssetId>[0];
         localId: u32 | Parameters<typeof createMockU32>[0];
       }
 ): MockCodec<PalletCorporateActionsCaId> => {
-  const { ticker, localId } = caId ?? {
-    ticker: createMockTicker(),
+  const { assetId, localId } = caId ?? {
+    assetId: createMockAssetId(),
     localId: createMockU32(),
   };
 
   return createMockCodec(
     {
-      ticker: createMockTicker(ticker),
+      assetId: createMockAssetId(assetId),
       localId: createMockU32(localId),
     },
     !caId

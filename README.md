@@ -14,7 +14,7 @@
 
 ## Polymesh version
 
-This release is compatible with Polymesh v6.0, v6.1, v6.2 and Polymesh Private v1.0
+This release is compatible with Polymesh v6.3/v7.0 and Polymesh Private v1.0/v2.0
 
 <!--- End of section --->
 
